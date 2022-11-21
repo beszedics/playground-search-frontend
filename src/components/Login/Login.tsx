@@ -16,22 +16,23 @@ import {
 import React from 'react';
 import Logo from '../Logo/Logo';
 
-type RegistrationProps = {
+type LoginProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const Registration = ({ isOpen, onClose }: RegistrationProps) => {
+const Login = ({ isOpen, onClose }: LoginProps) => {
   const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
     console.log('Form is submitted');
     e.preventDefault();
 
     // TODO form validation, api call
   };
-  const onLoginClick = () => {
-    console.log('onLoginClicked');
 
-    // TODO navigate to login modal
+  const onSignUpClick = () => {
+    console.log('onSignUpClicked');
+
+    // TODO navigate to registration modal
   };
 
   return (
@@ -41,9 +42,9 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
         onClose={onClose}
         autoFocus
         isCentered
-        id="registration_modal"
+        id="login_modal"
       >
-        <ModalOverlay data-testid="registration_overlay" />
+        <ModalOverlay data-testid="login_overlay" />
         <ModalContent>
           <ModalHeader>
             <Logo />
@@ -51,33 +52,9 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
           <ModalCloseButton />
           <ModalBody>
             <Heading size="md" mb={5}>
-              Create your account
+              Login to your account
             </Heading>
             <form onSubmit={onFormSubmitClick}>
-              <FormControl label="First name" isRequired mb={2}>
-                <FormLabel>First name</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="First name"
-                  focusBorderColor="teal.600"
-                />
-              </FormControl>
-              <FormControl label="Last name" isRequired mb={2}>
-                <FormLabel>Last name</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Last name"
-                  focusBorderColor="teal.600"
-                />
-              </FormControl>
-              <FormControl label="Email" isRequired mb={2}>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  focusBorderColor="teal.600"
-                />
-              </FormControl>
               <FormControl label="Username" isRequired mb={2}>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -101,19 +78,19 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
                 w="full"
                 mt={3}
               >
-                Sign up
+                Login
               </Button>
             </form>
           </ModalBody>
           <ModalFooter display="flex" justifyContent="center">
-            <Text>Already have an account?</Text>
+            <Text>Need an account?</Text>
             <Button
               colorScheme="teal"
               variant="link"
               ml={2}
-              onClick={onLoginClick}
+              onClick={onSignUpClick}
             >
-              Log in
+              Sign up
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -122,4 +99,4 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
   );
 };
 
-export default Registration;
+export default Login;
