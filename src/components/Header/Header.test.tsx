@@ -114,4 +114,63 @@ describe('Header unit test', () => {
 
     expect(registrationHeading).not.toBeInTheDocument();
   }); */
+
+  it('If Login button is clicked then the login modal is opened', async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(<Header />);
+
+    const loginBtn = getByRole('button', {
+      name: /login/i,
+    });
+
+    await user.click(loginBtn);
+
+    const loginHeading = getByRole('heading', {
+      name: /login to your account/i,
+    });
+
+    expect(loginHeading).toBeInTheDocument();
+  });
+
+  it('The close button is clicked then the login modal is disappeared', async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(<Header />);
+
+    const loginBtn = getByRole('button', {
+      name: /login/i,
+    });
+
+    await user.click(loginBtn);
+
+    const loginHeading = getByRole('heading', {
+      name: /login to your account/i,
+    });
+
+    const closeBtn = getByRole('button', {
+      name: /close/i,
+    });
+
+    await user.click(closeBtn);
+
+    expect(loginHeading).not.toBeInTheDocument();
+  });
+
+  it('The ESC button is clicked then the login modal is disappeared', async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(<Header />);
+
+    const loginUpBtn = getByRole('button', {
+      name: /login/i,
+    });
+
+    await user.click(loginUpBtn);
+
+    const loginHeading = getByRole('heading', {
+      name: /login to your account/i,
+    });
+
+    await user.keyboard('[Escape]');
+
+    expect(loginHeading).not.toBeInTheDocument();
+  });
 });
