@@ -1,0 +1,14 @@
+{
+  "header": {
+    "sign_up": "Regisztráció",
+    "login": "Bejelentkezés"
+  },
+  "loginModal": {
+    "headerText": "Jelentkezz be a profilodba",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "loginBtn": "Bejelentkezés",
+    "registrationText": "Nincs még profilod?",
+    "registrationBtn": "Regisztráció"
+  }
+}

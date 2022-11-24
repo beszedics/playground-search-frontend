@@ -1,0 +1,14 @@
+{
+  "header": {
+    "sign_up": "Registration",
+    "login": "Login"
+  },
+  "loginModal": {
+    "headerText": "Login to your account",
+    "username": "Username",
+    "password": "Password",
+    "loginBtn": "Login",
+    "registrationText": "Need an account?",
+    "registrationBtn": "Sign up"
+  }
+}

@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Logo from '../Logo/Logo';
+import { useTranslation } from 'react-i18next';
 
 type LoginProps = {
   isOpen: boolean;
@@ -22,6 +23,8 @@ type LoginProps = {
 };
 
 const Login = ({ isOpen, onClose }: LoginProps) => {
+  const { t } = useTranslation();
+
   const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
     console.log('Form is submitted');
     e.preventDefault();
@@ -52,11 +55,11 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
           <ModalCloseButton />
           <ModalBody>
             <Heading size="md" mb={5}>
-              Login to your account
+              {t('loginModal.headerText')}
             </Heading>
             <form onSubmit={onFormSubmitClick}>
               <FormControl label="Username" isRequired mb={2}>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t('loginModal.username')}</FormLabel>
                 <Input
                   type="text"
                   placeholder="Username"
@@ -64,7 +67,7 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
                 />
               </FormControl>
               <FormControl label="Password" isRequired mb={2}>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('loginModal.password')}</FormLabel>
                 <Input
                   type="password"
                   placeholder="********"
@@ -78,19 +81,19 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
                 w="full"
                 mt={3}
               >
-                Login
+                {t('loginModal.loginBtn')}
               </Button>
             </form>
           </ModalBody>
           <ModalFooter display="flex" justifyContent="center">
-            <Text>Need an account?</Text>
+            <Text>{t('loginModal.registrationText')}</Text>
             <Button
               colorScheme="teal"
               variant="link"
               ml={2}
               onClick={onSignUpClick}
             >
-              Sign up
+              {t('loginModal.registrationBtn')}
             </Button>
           </ModalFooter>
         </ModalContent>
