@@ -22,12 +22,9 @@ describe('Header unit test', () => {
 
   it('Header should render sign up and login button if there is not logged in user', async () => {
     const { getByRole } = render(<Header />);
-    const signUpBtn = getByRole('button', {
-      name: /sign up/i,
-    });
-    const loginBtn = getByRole('button', {
-      name: /login/i,
-    });
+
+    const signUpBtn = getByRole('button', { name: /header.signUp/i });
+    const loginBtn = getByRole('button', { name: /header.login/i });
 
     expect(signUpBtn).toBeInTheDocument();
     expect(loginBtn).toBeInTheDocument();
@@ -37,14 +34,12 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const signUpBtn = getByRole('button', {
-      name: /sign up/i,
-    });
+    const signUpBtn = getByRole('button', { name: /header.signUp/i });
 
     await user.click(signUpBtn);
 
     const registrationHeading = getByRole('heading', {
-      name: /create your account/i,
+      name: /registrationModal.headerText/i,
     });
 
     expect(registrationHeading).toBeInTheDocument();
@@ -54,19 +49,15 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const signUpBtn = getByRole('button', {
-      name: /sign up/i,
-    });
+    const signUpBtn = getByRole('button', { name: /header.signUp/i });
 
     await user.click(signUpBtn);
 
     const registrationHeading = getByRole('heading', {
-      name: /create your account/i,
+      name: /registrationModal.headerText/i,
     });
 
-    const closeBtn = getByRole('button', {
-      name: /close/i,
-    });
+    const closeBtn = getByRole('button', { name: /close/i });
 
     await user.click(closeBtn);
 
@@ -77,14 +68,12 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const signUpBtn = getByRole('button', {
-      name: /sign up/i,
-    });
+    const signUpBtn = getByRole('button', { name: /header.signUp/i });
 
     await user.click(signUpBtn);
 
     const registrationHeading = getByRole('heading', {
-      name: /create your account/i,
+      name: /registrationModal.headerText/i,
     });
 
     await user.keyboard('[Escape]');
@@ -119,14 +108,12 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const loginBtn = getByRole('button', {
-      name: /login/i,
-    });
+    const loginBtn = getByRole('button', { name: /header.login/i });
 
     await user.click(loginBtn);
 
     const loginHeading = getByRole('heading', {
-      name: /login to your account/i,
+      name: /loginModal.headerText/i,
     });
 
     expect(loginHeading).toBeInTheDocument();
@@ -136,19 +123,15 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const loginBtn = getByRole('button', {
-      name: /login/i,
-    });
+    const loginBtn = getByRole('button', { name: /header.login/i });
 
     await user.click(loginBtn);
 
     const loginHeading = getByRole('heading', {
-      name: /login to your account/i,
+      name: /loginModal.headerText/i,
     });
 
-    const closeBtn = getByRole('button', {
-      name: /close/i,
-    });
+    const closeBtn = getByRole('button', { name: /close/i });
 
     await user.click(closeBtn);
 
@@ -159,14 +142,12 @@ describe('Header unit test', () => {
     const user = userEvent.setup();
     const { getByRole } = render(<Header />);
 
-    const loginUpBtn = getByRole('button', {
-      name: /login/i,
-    });
+    const loginUpBtn = getByRole('button', { name: /header.login/i });
 
     await user.click(loginUpBtn);
 
     const loginHeading = getByRole('heading', {
-      name: /login to your account/i,
+      name: /loginModal.headerText/i,
     });
 
     await user.keyboard('[Escape]');

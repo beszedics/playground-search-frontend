@@ -11,10 +11,10 @@ describe('Login unit test', () => {
     );
 
     const usernameInput = getByRole('textbox', {
-      name: /username/i,
+      name: /loginModal.username/i,
     });
 
-    const passwordInput = getByLabelText(/password\*/i);
+    const passwordInput = getByLabelText(/loginModal.password\*/i);
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
@@ -23,10 +23,10 @@ describe('Login unit test', () => {
   it('Sign up button is shown with the need an account text', async () => {
     const { getByRole, getByText } = render(<Login isOpen onClose={onClose} />);
 
-    const needAnAccountText = getByText(/need an account\?/i);
+    const needAnAccountText = getByText(/loginModal.registrationText/i);
 
     const signUpBtn = getByRole('button', {
-      name: /sign up/i,
+      name: /loginModal.registrationBtn/i,
     });
 
     expect(needAnAccountText).toBeInTheDocument();
