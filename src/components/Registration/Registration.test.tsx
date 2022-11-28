@@ -11,22 +11,22 @@ describe('Registration unit test', () => {
     );
 
     const firstNameInput = getByRole('textbox', {
-      name: /first name/i,
+      name: /registrationModal.firstName/i,
     });
 
     const lastNameInput = getByRole('textbox', {
-      name: /last name/i,
+      name: /registrationModal.lastName/i,
     });
 
     const emailInput = getByRole('textbox', {
-      name: /email/i,
+      name: /registrationModal.email/i,
     });
 
     const usernameInput = getByRole('textbox', {
-      name: /username/i,
+      name: /registrationModal.username/i,
     });
 
-    const passwordInput = getByLabelText(/password\*/i);
+    const passwordInput = getByLabelText(/registrationModal.password\*/i);
 
     expect(firstNameInput).toBeInTheDocument();
     expect(lastNameInput).toBeInTheDocument();
@@ -40,10 +40,10 @@ describe('Registration unit test', () => {
       <Registration isOpen onClose={onClose} />,
     );
 
-    const alreadyHaveAnAccountText = getByText(/already have an account\?/i);
+    const alreadyHaveAnAccountText = getByText(/registrationModal.loginText/i);
 
     const loginUpBtn = getByRole('button', {
-      name: /log in/i,
+      name: /registrationModal.loginBtn/i,
     });
 
     expect(alreadyHaveAnAccountText).toBeInTheDocument();

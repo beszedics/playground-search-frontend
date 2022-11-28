@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Logo from '../Logo/Logo';
+import { useTranslation } from 'react-i18next';
 
 type RegistrationProps = {
   isOpen: boolean;
@@ -22,6 +23,8 @@ type RegistrationProps = {
 };
 
 const Registration = ({ isOpen, onClose }: RegistrationProps) => {
+  const { t } = useTranslation();
+
   const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
     console.log('Form is submitted');
     e.preventDefault();
@@ -51,48 +54,28 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
           <ModalCloseButton />
           <ModalBody>
             <Heading size="md" mb={5}>
-              Create your account
+              {t('registrationModal.headerText')}
             </Heading>
             <form onSubmit={onFormSubmitClick}>
               <FormControl label="First name" isRequired mb={2}>
-                <FormLabel>First name</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="First name"
-                  focusBorderColor="teal.600"
-                />
+                <FormLabel>{t('registrationModal.firstName')}</FormLabel>
+                <Input type="text" focusBorderColor="teal.600" />
               </FormControl>
               <FormControl label="Last name" isRequired mb={2}>
-                <FormLabel>Last name</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Last name"
-                  focusBorderColor="teal.600"
-                />
+                <FormLabel>{t('registrationModal.lastName')}</FormLabel>
+                <Input type="text" focusBorderColor="teal.600" />
               </FormControl>
               <FormControl label="Email" isRequired mb={2}>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  focusBorderColor="teal.600"
-                />
+                <FormLabel>{t('registrationModal.email')}</FormLabel>
+                <Input type="email" focusBorderColor="teal.600" />
               </FormControl>
               <FormControl label="Username" isRequired mb={2}>
-                <FormLabel>Username</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Username"
-                  focusBorderColor="teal.600"
-                />
+                <FormLabel>{t('registrationModal.username')}</FormLabel>
+                <Input type="text" focusBorderColor="teal.600" />
               </FormControl>
               <FormControl label="Password" isRequired mb={2}>
-                <FormLabel>Password</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="********"
-                  focusBorderColor="teal.600"
-                />
+                <FormLabel>{t('registrationModal.password')}</FormLabel>
+                <Input type="password" focusBorderColor="teal.600" />
               </FormControl>
               <Button
                 type="submit"
@@ -101,19 +84,19 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
                 w="full"
                 mt={3}
               >
-                Sign up
+                {t('registrationModal.registrationBtn')}
               </Button>
             </form>
           </ModalBody>
           <ModalFooter display="flex" justifyContent="center">
-            <Text>Already have an account?</Text>
+            <Text>{t('registrationModal.loginText')}</Text>
             <Button
               colorScheme="teal"
               variant="link"
               ml={2}
               onClick={onLoginClick}
             >
-              Log in
+              {t('registrationModal.loginBtn')}
             </Button>
           </ModalFooter>
         </ModalContent>

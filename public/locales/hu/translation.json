@@ -1,6 +1,6 @@
 {
   "header": {
-    "sign_up": "Regisztráció",
+    "signUp": "Regisztráció",
     "login": "Bejelentkezés"
   },
   "loginModal": {
@@ -10,5 +10,16 @@
     "loginBtn": "Bejelentkezés",
     "registrationText": "Nincs még profilod?",
     "registrationBtn": "Regisztráció"
+  },
+  "registrationModal": {
+    "headerText": "Profil készítése",
+    "firstName": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "email": "Email",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "registrationBtn": "Regisztráció",
+    "loginText": "Van már profilod?",
+    "loginBtn": "Bejelentkezés"
   }
 }

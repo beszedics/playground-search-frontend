@@ -32,7 +32,7 @@ i18n
 
       missingKeys[hash] = true;
       console.warn(
-        `Translataion key is missing! [key]='${key}', lng='${lng}', ns='${ns}']`,
+        `Translation key is missing! [key]='${key}', lng='${lng}', ns='${ns}']`,
       );
     },
 

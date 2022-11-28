@@ -60,19 +60,11 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
             <form onSubmit={onFormSubmitClick}>
               <FormControl label="Username" isRequired mb={2}>
                 <FormLabel>{t('loginModal.username')}</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Username"
-                  focusBorderColor="teal.600"
-                />
+                <Input type="text" focusBorderColor="teal.600" />
               </FormControl>
               <FormControl label="Password" isRequired mb={2}>
                 <FormLabel>{t('loginModal.password')}</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="********"
-                  focusBorderColor="teal.600"
-                />
+                <Input type="password" focusBorderColor="teal.600" />
               </FormControl>
               <Button
                 type="submit"

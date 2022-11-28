@@ -70,7 +70,7 @@ const Header = () => {
         ) : (
           <Stack spacing={4} direction="row" align="center">
             <Button colorScheme="teal" onClick={onSignUpClick}>
-              {t('header.sign_up')}
+              {t('header.signUp')}
             </Button>
             <Button colorScheme="teal" onClick={onLoginClick}>
               {t('header.login')}
