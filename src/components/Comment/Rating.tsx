@@ -10,9 +10,14 @@ const Rating = ({ playgroundRating }: RatingProps) => {
   return (
     <Box display="flex" alignItems="center">
       {playgroundRating > 0 ? (
-        Array(playgroundRating)
+        Array(5)
           .fill('')
-          .map((_, i) => <StarIcon key={i} color="teal.500" />)
+          .map((_, i) => (
+            <StarIcon
+              key={i}
+              color={i < playgroundRating ? 'teal.500' : 'gray.300'}
+            />
+          ))
       ) : (
         <Text color="#1B4965" fontSize="16px">
           No rating

@@ -1,0 +1,30 @@
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(201, 201, 201, 0.8);
+  color: #319795;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+  background: #319795;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 25px;
+}
