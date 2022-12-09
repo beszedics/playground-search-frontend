@@ -21,5 +21,10 @@
     "registrationBtn": "Registration",
     "loginText": "Already have an account?",
     "loginBtn": "Log in"
+  },
+  "profile": {
+    "editProfile": "Edit profile",
+    "saveBtn": "Save",
+    "cancelBtn": "Cancel"
   }
 }

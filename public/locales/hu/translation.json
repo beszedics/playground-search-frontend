@@ -21,5 +21,10 @@
     "registrationBtn": "Regisztráció",
     "loginText": "Van már profilod?",
     "loginBtn": "Bejelentkezés"
+  },
+  "profile": {
+    "editProfile": "Profil szerkesztése",
+    "saveBtn": "Mentés",
+    "cancelBtn": "Mégsem"
   }
 }
