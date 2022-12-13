@@ -16,8 +16,8 @@ export const App = () => {
           description="This playground is full of well-equipped equipment that’s why I give it five stars. We are looking forward to come back later."
           dateTime="Nov 28., 2022 at 23:18"
         />
+        <Profile />
       </UserProvider>
-      <Profile />
     </ChakraProvider>
   );
 };

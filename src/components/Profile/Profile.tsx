@@ -1,11 +1,12 @@
 import { Box, Button, FormControl, Input } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Avatar from '../Avatar/Avatar';
 import { useTranslation } from 'react-i18next';
 import EditProfile from '../Modal/EditProfile';
+import { UserContext } from '../../context/UserContext';
 
 const Profile = () => {
-  /* TODO need to get user from userContext */
+  const { user, setUser } = useContext(UserContext);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ const Profile = () => {
           <Input
             type="text"
             isReadOnly
-            placeholder="Tamas"
+            placeholder={user?.firstName}
             focusBorderColor="teal.600"
           />
         </FormControl>
@@ -37,7 +38,7 @@ const Profile = () => {
           <Input
             type="text"
             isReadOnly
-            placeholder="Beszedics"
+            placeholder={user?.lastName}
             focusBorderColor="teal.600"
           />
         </FormControl>
@@ -45,7 +46,7 @@ const Profile = () => {
           <Input
             type="email"
             isReadOnly
-            placeholder="admin@playgroundsearch.hu"
+            placeholder={user?.email}
             focusBorderColor="teal.600"
           />
         </FormControl>
@@ -53,7 +54,7 @@ const Profile = () => {
           <Input
             type="text"
             isReadOnly
-            placeholder="beszedics"
+            placeholder={user?.username}
             focusBorderColor="teal.600"
           />
         </FormControl>
