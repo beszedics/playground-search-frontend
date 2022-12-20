@@ -49,8 +49,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [error, setError] = useState<ErrorProps>();
 
   useEffect(() => {
-    axios
-      .get('/auth/users/2b2c2342-6532-460d-ab95-cc4eaf38a278')
+    axios({
+      url: '/auth/users/549fd6ca-72d9-4d4a-a136-5785c70c2c11',
+      method: 'GET',
+    })
       .then((response) => {
         setUser(response.data);
       })
