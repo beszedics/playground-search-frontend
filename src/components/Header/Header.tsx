@@ -9,14 +9,17 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SearchIcon } from '@chakra-ui/icons';
 import Logo from '../Logo/Logo';
 import Registration from '../Registration/Registration';
+import Login from '../Login/Login';
 
 const Header = () => {
+  const { t } = useTranslation();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const onSignUpClick = () => {
@@ -24,7 +27,10 @@ const Header = () => {
     setShowRegistrationModal(!showRegistrationModal);
   };
 
-  const handleLoginClick = () => console.log('Login is clicked');
+  const onLoginClick = () => {
+    console.log('Login is clicked');
+    setShowLoginModal(!showLoginModal);
+  };
 
   return (
     <>
@@ -64,15 +70,16 @@ const Header = () => {
         ) : (
           <Stack spacing={4} direction="row" align="center">
             <Button colorScheme="teal" onClick={onSignUpClick}>
-              Sign up
+              {t('header.signUp')}
             </Button>
-            <Button colorScheme="teal" onClick={handleLoginClick}>
-              Login
+            <Button colorScheme="teal" onClick={onLoginClick}>
+              {t('header.login')}
             </Button>
           </Stack>
         )}
       </HStack>
       {showRegistrationModal && <Registration isOpen onClose={onSignUpClick} />}
+      {showLoginModal && <Login isOpen onClose={onLoginClick} />}
     </>
   );
 };

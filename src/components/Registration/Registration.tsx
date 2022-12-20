@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormLabel,
   Heading,
   Input,
   Modal,
@@ -14,19 +15,62 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Logo from '../Logo/Logo';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from '../../api/axios';
 
 type RegistrationProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const Registration = ({ isOpen, onClose }: RegistrationProps) => {
-  const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Form is submitted');
-    e.preventDefault();
+const RegistrationValidationSchema = Yup.object().shape({
+  firstName: Yup.string().required('Firstname is required!'),
+  lastName: Yup.string().required('Lastname is required!'),
+  email: Yup.string().email().required('Email is required!'),
+  username: Yup.string().required('Username is required!'),
+  password: Yup.string().required('Password is required!'),
+});
 
-    // TODO form validation, api call
-  };
+const Registration = ({ isOpen, onClose }: RegistrationProps) => {
+  const { t } = useTranslation();
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      password: '',
+    },
+    validationSchema: RegistrationValidationSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    onSubmit: (values, actions) => {
+      const data = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        username: values.username,
+        password: values.password,
+      };
+      axios({
+        url: '/auth/registration',
+        method: 'POST',
+        data: data,
+      })
+        .then((res) => console.log(res))
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+
+      // TODO navigate based on response
+
+      actions.resetForm();
+    },
+  });
+
   const onLoginClick = () => {
     console.log('onLoginClicked');
 
@@ -50,43 +94,110 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
           <ModalCloseButton />
           <ModalBody>
             <Heading size="md" mb={5}>
-              Create your account
+              {t('registrationModal.headerText')}
             </Heading>
-            <form onSubmit={onFormSubmitClick}>
-              <FormControl label="First name" isRequired mb={2}>
+            <form onSubmit={formik.handleSubmit}>
+              <FormControl
+                label="First name"
+                mb={2}
+                isInvalid={
+                  !!formik.errors.firstName && formik.touched.firstName
+                }
+              >
+                <FormLabel htmlFor="firstName">
+                  {t('registrationModal.firstName')}
+                </FormLabel>
                 <Input
+                  id="firstName"
                   type="text"
-                  placeholder="First name"
                   focusBorderColor="teal.600"
+                  {...formik.getFieldProps('firstName')}
                 />
+                {formik.errors.firstName && formik.touched.firstName ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.firstName}
+                  </Text>
+                ) : null}
               </FormControl>
-              <FormControl label="Last name" isRequired mb={2}>
+              <FormControl
+                label="Last name"
+                mb={2}
+                isInvalid={!!formik.errors.lastName && formik.touched.lastName}
+              >
+                <FormLabel htmlFor="lastName">
+                  {t('registrationModal.lastName')}
+                </FormLabel>
                 <Input
+                  id="lastName"
                   type="text"
-                  placeholder="Last name"
                   focusBorderColor="teal.600"
+                  {...formik.getFieldProps('lastName')}
                 />
+                {formik.errors.lastName && formik.touched.lastName ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.lastName}
+                  </Text>
+                ) : null}
               </FormControl>
-              <FormControl label="Email" isRequired mb={2}>
+              <FormControl
+                label="Email"
+                mb={2}
+                isInvalid={!!formik.errors.email && formik.touched.email}
+              >
+                <FormLabel htmlFor="email">
+                  {t('registrationModal.email')}
+                </FormLabel>
                 <Input
+                  id="email"
                   type="email"
-                  placeholder="Email"
                   focusBorderColor="teal.600"
+                  {...formik.getFieldProps('email')}
                 />
+                {formik.errors.email && formik.touched.email ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.email}
+                  </Text>
+                ) : null}
               </FormControl>
-              <FormControl label="Username" isRequired mb={2}>
+              <FormControl
+                label="Username"
+                mb={2}
+                isInvalid={!!formik.errors.username && formik.touched.username}
+              >
+                <FormLabel htmlFor="username">
+                  {t('registrationModal.username')}
+                </FormLabel>
                 <Input
+                  id="username"
                   type="text"
-                  placeholder="Username"
                   focusBorderColor="teal.600"
+                  {...formik.getFieldProps('username')}
                 />
+                {formik.errors.username && formik.touched.username ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.username}
+                  </Text>
+                ) : null}
               </FormControl>
-              <FormControl label="Password" isRequired mb={2}>
+              <FormControl
+                label="Password"
+                mb={2}
+                isInvalid={!!formik.errors.password && formik.touched.password}
+              >
+                <FormLabel htmlFor="password">
+                  {t('registrationModal.password')}
+                </FormLabel>
                 <Input
+                  id="password"
                   type="password"
-                  placeholder="********"
                   focusBorderColor="teal.600"
+                  {...formik.getFieldProps('password')}
                 />
+                {formik.errors.password && formik.touched.password ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.password}
+                  </Text>
+                ) : null}
               </FormControl>
               <Button
                 type="submit"
@@ -95,19 +206,19 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
                 w="full"
                 mt={3}
               >
-                Sign up
+                {t('registrationModal.registrationBtn')}
               </Button>
             </form>
           </ModalBody>
           <ModalFooter display="flex" justifyContent="center">
-            <Text>Already have an account?</Text>
+            <Text>{t('registrationModal.loginText')}</Text>
             <Button
               colorScheme="teal"
               variant="link"
               ml={2}
               onClick={onLoginClick}
             >
-              Log in
+              {t('registrationModal.loginBtn')}
             </Button>
           </ModalFooter>
         </ModalContent>

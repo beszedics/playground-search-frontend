@@ -1,0 +1,25 @@
+{
+  "header": {
+    "signUp": "Regisztráció",
+    "login": "Bejelentkezés"
+  },
+  "loginModal": {
+    "headerText": "Jelentkezz be a profilodba",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "loginBtn": "Bejelentkezés",
+    "registrationText": "Nincs még profilod?",
+    "registrationBtn": "Regisztráció"
+  },
+  "registrationModal": {
+    "headerText": "Profil készítése",
+    "firstName": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "email": "Email",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "registrationBtn": "Regisztráció",
+    "loginText": "Van már profilod?",
+    "loginBtn": "Bejelentkezés"
+  }
+}
