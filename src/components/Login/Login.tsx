@@ -18,6 +18,7 @@ import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from '../../api/axios';
 
 type LoginProps = {
   isOpen: boolean;
@@ -41,9 +42,21 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (values, actions) => {
-      alert(JSON.stringify(values, null, 2));
+      const data = {
+        username: values.username,
+        password: values.password,
+      };
+      axios({
+        url: '/auth/login',
+        method: 'POST',
+        data: data,
+      })
+        .then((res) => console.log(res.data))
+        .catch((error) => {
+          throw new Error(error.message);
+        });
 
-      // TODO api call and navigate based on response
+      // TODO navigate based on response
 
       actions.resetForm();
     },
