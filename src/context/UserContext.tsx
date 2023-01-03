@@ -11,20 +11,20 @@ import React, {
 import axios from '../api/axios';
 
 type User = {
-  [key: string]: string;
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  username: string;
-  password: string;
-  created_at: string;
-  updated_at: string;
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
 };
 
 type UserContext = {
   user?: User;
-  setUser?: Dispatch<SetStateAction<undefined>>;
+  setUser?: Dispatch<SetStateAction<User | undefined>>;
   error?: ErrorProps;
 };
 
@@ -45,17 +45,33 @@ type UserProviderProps = {
 export const UserContext = createContext<UserContext>({});
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User>();
   const [error, setError] = useState<ErrorProps>();
 
   useEffect(() => {
-    axios
-      .get('/auth/users/2b2c2342-6532-460d-ab95-cc4eaf38a278')
-      .then((response) => {
-        setUser(response.data);
+    axios({
+      url: '/auth',
+      method: 'GET',
+      headers: {
+        token: localStorage.getItem('token'),
+      },
+    })
+      .then((res) => {
+        if (res.data.error) {
+          setUser?.({ ...user, status: false });
+        } else {
+          setUser?.({
+            id: res.data.id,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            email: res.data.email,
+            username: res.data.username,
+            status: true,
+          });
+        }
       })
       .catch((error) => {
-        setError(error);
+        throw new Error(error.message);
       });
   }, []);
 

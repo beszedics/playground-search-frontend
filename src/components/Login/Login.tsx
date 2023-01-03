@@ -12,25 +12,92 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from '../../api/axios';
+import { UserContext } from '../../context/UserContext';
 
 type LoginProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
+const LoginValidationSchema = Yup.object().shape({
+  username: Yup.string().required('Username is required!'),
+  password: Yup.string().required('Password is required!'),
+});
+
 const Login = ({ isOpen, onClose }: LoginProps) => {
+  const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
+  const toast = useToast();
 
-  const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('Form is submitted');
-    e.preventDefault();
-
-    // TODO form validation, api call
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: LoginValidationSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    onSubmit: (values) => {
+      const data = {
+        username: values.username,
+        password: values.password,
+      };
+      axios({
+        url: '/auth/login',
+        method: 'POST',
+        data: data,
+      })
+        .then((res) => {
+          if (res.data.error) {
+            toast({
+              title: t('loginModal.failedLogin'),
+              description: res.data.error,
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+          } else {
+            localStorage.setItem('token', res.data.token);
+            setUser?.({
+              id: res.data.user.id,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              email: res.data.user.email,
+              username: res.data.user.username,
+              status: true,
+            });
+            toast({
+              title: t('loginModal.successfulLogin'),
+              description: t('loginModal.welcome'),
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+            onClose();
+          }
+        })
+        .catch((error) => {
+          toast({
+            title: t('loginModal.failedLogin'),
+            description: error.response.data.error,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+            position: 'top',
+          });
+        });
+    },
+  });
 
   const onSignUpClick = () => {
     console.log('onSignUpClicked');
@@ -57,14 +124,46 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
             <Heading size="md" mb={5}>
               {t('loginModal.headerText')}
             </Heading>
-            <form onSubmit={onFormSubmitClick}>
-              <FormControl label="Username" isRequired mb={2}>
-                <FormLabel>{t('loginModal.username')}</FormLabel>
-                <Input type="text" focusBorderColor="teal.600" />
+            <form onSubmit={formik.handleSubmit}>
+              <FormControl
+                label="Username"
+                mb={2}
+                isInvalid={!!formik.errors.username && formik.touched.username}
+              >
+                <FormLabel htmlFor="username">
+                  {t('loginModal.username')}
+                </FormLabel>
+                <Input
+                  id="username"
+                  type="text"
+                  focusBorderColor="teal.600"
+                  {...formik.getFieldProps('username')}
+                />
+                {formik.errors.username && formik.touched.username ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.username}
+                  </Text>
+                ) : null}
               </FormControl>
-              <FormControl label="Password" isRequired mb={2}>
-                <FormLabel>{t('loginModal.password')}</FormLabel>
-                <Input type="password" focusBorderColor="teal.600" />
+              <FormControl
+                label="Password"
+                mb={2}
+                isInvalid={!!formik.errors.password && formik.touched.password}
+              >
+                <FormLabel htmlFor="password">
+                  {t('loginModal.password')}
+                </FormLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  focusBorderColor="teal.600"
+                  {...formik.getFieldProps('password')}
+                />
+                {formik.errors.password && formik.touched.password ? (
+                  <Text color="red.500" mt={1}>
+                    {formik.errors.password}
+                  </Text>
+                ) : null}
               </FormControl>
               <Button
                 type="submit"

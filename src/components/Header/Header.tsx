@@ -6,21 +6,29 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
   Stack,
+  useToast,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SearchIcon } from '@chakra-ui/icons';
 import Logo from '../Logo/Logo';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
+import { UserContext } from '../../context/UserContext';
 
 const Header = () => {
   const { t } = useTranslation();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+  const toast = useToast();
 
   const onSignUpClick = () => {
     console.log('Sign up is clicked');
@@ -30,6 +38,19 @@ const Header = () => {
   const onLoginClick = () => {
     console.log('Login is clicked');
     setShowLoginModal(!showLoginModal);
+  };
+
+  const onLogoutClick = () => {
+    localStorage.removeItem('token');
+    setUser?.({ status: false });
+    toast({
+      title: t('loginModal.successfulLogout'),
+      description: t('loginModal.bye'),
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top',
+    });
   };
 
   return (
@@ -63,10 +84,20 @@ const Header = () => {
             />
           </InputGroup>
         </Box>
-        {isUserLoggedIn ? (
-          <Box>
-            <Avatar name="Test User" bg="teal.400" />
-          </Box>
+        {user?.status ? (
+          <Menu>
+            <MenuButton>
+              <Avatar
+                name={`${user.firstName} ${user.lastName}`}
+                bg="teal.400"
+              />
+            </MenuButton>
+            <MenuList>
+              <MenuItem>{t('header.profile')}</MenuItem>
+              <MenuDivider />
+              <MenuItem onClick={onLogoutClick}>{t('header.logout')}</MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
           <Stack spacing={4} direction="row" align="center">
             <Button colorScheme="teal" onClick={onSignUpClick}>

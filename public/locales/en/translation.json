@@ -1,7 +1,9 @@
 {
   "header": {
     "signUp": "Registration",
-    "login": "Login"
+    "login": "Login",
+    "logout": "Logout",
+    "profile": "Profile"
   },
   "loginModal": {
     "headerText": "Login to your account",
@@ -9,7 +11,12 @@
     "password": "Password",
     "loginBtn": "Login",
     "registrationText": "Need an account?",
-    "registrationBtn": "Sign up"
+    "registrationBtn": "Sign up",
+    "successfulLogin": "Login successful",
+    "failedLogin": "Login failed",
+    "successfulLogout": "Logout successful",
+    "welcome": "Welcome 👋",
+    "bye": "Bye 👋"
   },
   "registrationModal": {
     "headerText": "Create your account",
@@ -20,7 +27,9 @@
     "password": "Password",
     "registrationBtn": "Registration",
     "loginText": "Already have an account?",
-    "loginBtn": "Log in"
+    "loginBtn": "Log in",
+    "successfulRegistration": "Registration successful",
+    "failedRegistration": "Registration failed"
   },
   "profile": {
     "editProfile": "Edit profile",
