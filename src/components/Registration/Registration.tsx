@@ -12,13 +12,15 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../api/axios';
+import { UserContext } from '../../context/UserContext';
 
 type RegistrationProps = {
   isOpen: boolean;
@@ -34,7 +36,9 @@ const RegistrationValidationSchema = Yup.object().shape({
 });
 
 const Registration = ({ isOpen, onClose }: RegistrationProps) => {
+  const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
+  const toast = useToast();
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +51,7 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
     validationSchema: RegistrationValidationSchema,
     validateOnBlur: true,
     validateOnChange: true,
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       const data = {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -60,14 +64,47 @@ const Registration = ({ isOpen, onClose }: RegistrationProps) => {
         method: 'POST',
         data: data,
       })
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.data.error) {
+            toast({
+              title: t('registrationModal.failedRegistration'),
+              description: res.data.error,
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+          } else {
+            localStorage.setItem('token', res.data.token);
+            setUser?.({
+              id: res.data.user.id,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              email: res.data.user.email,
+              username: res.data.user.username,
+              status: true,
+            });
+            toast({
+              title: t('registrationModal.successfulRegistration'),
+              description: t('loginModal.welcome'),
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+            onClose();
+          }
+        })
         .catch((error) => {
-          throw new Error(error.message);
+          toast({
+            title: t('registrationModal.failedRegistration'),
+            description: error.response.data.error,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+            position: 'top',
+          });
         });
-
-      // TODO navigate based on response
-
-      actions.resetForm();
     },
   });
 
