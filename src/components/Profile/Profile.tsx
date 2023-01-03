@@ -6,14 +6,10 @@ import EditProfile from '../Modal/EditProfile';
 import { UserContext } from '../../context/UserContext';
 
 const Profile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   const { t } = useTranslation();
-  const onFormSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('onFormSubmitClick');
-  };
 
   const onEditProfileClick = () => {
     console.log('EditProfile is clicked');
@@ -24,7 +20,7 @@ const Profile = () => {
     <>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Box mb={6}>
-          <Avatar name="Tamas Beszedics" size="xl" />
+          <Avatar name={`${user?.firstName} ${user?.lastName}`} size="xl" />
         </Box>
         <FormControl label="First name" mb={2}>
           <Input

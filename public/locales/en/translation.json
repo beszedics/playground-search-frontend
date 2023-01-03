@@ -35,5 +35,9 @@
     "editProfile": "Edit profile",
     "saveBtn": "Save",
     "cancelBtn": "Cancel"
+  },
+  "editProfile": {
+    "successfulEditProfile": "Edited successful",
+    "failedEditProfile": "Edited failed"
   }
 }

@@ -35,5 +35,9 @@
     "editProfile": "Profil szerkesztése",
     "saveBtn": "Mentés",
     "cancelBtn": "Mégsem"
+  },
+  "editProfile": {
+    "successfulEditProfile": "Sikeres profilmódosítás",
+    "failedEditProfile": "Sikertelen profilmódosítás"
   }
 }
