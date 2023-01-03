@@ -12,13 +12,15 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../api/axios';
+import { UserContext } from '../../context/UserContext';
 
 type LoginProps = {
   isOpen: boolean;
@@ -31,7 +33,9 @@ const LoginValidationSchema = Yup.object().shape({
 });
 
 const Login = ({ isOpen, onClose }: LoginProps) => {
+  const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
+  const toast = useToast();
 
   const formik = useFormik({
     initialValues: {
@@ -41,7 +45,7 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
     validationSchema: LoginValidationSchema,
     validateOnBlur: true,
     validateOnChange: true,
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       const data = {
         username: values.username,
         password: values.password,
@@ -51,14 +55,47 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
         method: 'POST',
         data: data,
       })
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          if (res.data.error) {
+            toast({
+              title: t('loginModal.failedLogin'),
+              description: res.data.error,
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+          } else {
+            localStorage.setItem('token', res.data.token);
+            setUser?.({
+              id: res.data.user.id,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              email: res.data.user.email,
+              username: res.data.user.username,
+              status: true,
+            });
+            toast({
+              title: t('loginModal.successfulLogin'),
+              description: t('loginModal.welcome'),
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+              position: 'top',
+            });
+            onClose();
+          }
+        })
         .catch((error) => {
-          throw new Error(error.message);
+          toast({
+            title: t('loginModal.failedLogin'),
+            description: error.response.data.error,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+            position: 'top',
+          });
         });
-
-      // TODO navigate based on response
-
-      actions.resetForm();
     },
   });
 
