@@ -1,7 +1,9 @@
 {
   "header": {
     "signUp": "Regisztráció",
-    "login": "Bejelentkezés"
+    "login": "Bejelentkezés",
+    "logout": "Kijelentkezés",
+    "profile": "Profil"
   },
   "loginModal": {
     "headerText": "Jelentkezz be a profilodba",
@@ -9,7 +11,12 @@
     "password": "Jelszó",
     "loginBtn": "Bejelentkezés",
     "registrationText": "Nincs még profilod?",
-    "registrationBtn": "Regisztráció"
+    "registrationBtn": "Regisztráció",
+    "successfulLogin": "Sikeres bejelentkezés",
+    "failedLogin": "Sikertelen bejelentkezés",
+    "successfulLogout": "Sikeres kijelentkezés",
+    "welcome": "Üdv 👋",
+    "bye": "Szia 👋"
   },
   "registrationModal": {
     "headerText": "Profil készítése",
@@ -20,6 +27,17 @@
     "password": "Jelszó",
     "registrationBtn": "Regisztráció",
     "loginText": "Van már profilod?",
-    "loginBtn": "Bejelentkezés"
+    "loginBtn": "Bejelentkezés",
+    "successfulRegistration": "Sikeres regisztráció",
+    "failedRegistration": "Sikertelen regisztráció"
+  },
+  "profile": {
+    "editProfile": "Profil szerkesztése",
+    "saveBtn": "Mentés",
+    "cancelBtn": "Mégsem"
+  },
+  "editProfile": {
+    "successfulEditProfile": "Sikeres profilmódosítás",
+    "failedEditProfile": "Sikertelen profilmódosítás"
   }
 }
