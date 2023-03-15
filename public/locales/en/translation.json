@@ -39,5 +39,9 @@
   "editProfile": {
     "successfulEditProfile": "Edited successful",
     "failedEditProfile": "Edited failed"
+  },
+  "playgrounds": {
+    "failed_to_load_images": "Failed to load images",
+    "no_images_found": "No images found"
   }
 }

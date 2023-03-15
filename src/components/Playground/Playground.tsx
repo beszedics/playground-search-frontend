@@ -1,5 +1,12 @@
-import { Box, HStack, Image, Tag, Text } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Box,
+  CircularProgress,
+  HStack,
+  Image,
+  Tag,
+  Text,
+} from '@chakra-ui/react';
+import React, { PropsWithChildren } from 'react';
 import Rating from '../Comment/Rating';
 import { Icon } from '@chakra-ui/react';
 import { TiLocationArrowOutline } from 'react-icons/ti';
@@ -11,6 +18,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Playground.css';
+import useQuery from '../../hooks/useQuery';
+import { useTranslation } from 'react-i18next';
+
+const URL = '/images';
+
+const ErrorText = ({ children, ...props }: PropsWithChildren) => (
+  <Text fontSize="lg" color="red.300" {...props}>
+    {children}
+  </Text>
+);
 
 type PlaygroundProps = {
   name: string;
@@ -36,7 +53,6 @@ const Playground = ({
   address,
   rating,
   openingHours,
-  images,
   hasSwing,
   hasSlide,
   hasCarousel,
@@ -49,6 +65,14 @@ const Playground = ({
   hasObstacleCourse,
   hasRestHouse,
 }: PlaygroundProps) => {
+  const {
+    data: imageUrls = [],
+    isLoading: imagesLoading,
+    error: fetchError,
+  } = useQuery({ url: URL });
+
+  const { t } = useTranslation();
+
   return (
     <Box p={4}>
       <Box>
@@ -81,6 +105,22 @@ const Playground = ({
           {openingHours}
         </Text>
       </Box>
+      {imagesLoading && (
+        <CircularProgress
+          color="teal.500"
+          size={7}
+          thickness={10}
+          isIndeterminate
+        />
+      )}
+      {fetchError && (
+        <ErrorText>{t('playgrounds.failed_to_load_images')}</ErrorText>
+      )}
+      {!fetchError && imageUrls?.length === 0 && (
+        <Text textAlign="left" fontSize="lg" color="gray.500">
+          {t('playgrounds.no_images_found')}
+        </Text>
+      )}
       <Box maxW="600px">
         <Swiper
           slidesPerView={1}
@@ -93,34 +133,11 @@ const Playground = ({
             disableOnInteraction: false,
           }}
         >
-          <SwiperSlide>
-            <Image
-              src="https://www.shutterstock.com/image-photo/colorful-playground-on-yard-park-600w-688397077.jpg"
-              objectFit="cover"
-              borderRadius={4}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="https://www.shutterstock.com/image-photo/bayrampasa-istanbul-turkey-02172021-topkapi-600w-1926306755.jpg"
-              objectFit="cover"
-              borderRadius={4}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="https://www.shutterstock.com/image-photo/lodzpoland-november-082020-leisure-recreation-600w-1849867888.jpg"
-              objectFit="cover"
-              borderRadius={4}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="https://www.shutterstock.com/image-photo/colorful-children-playground-activities-public-600w-480258316.jpg"
-              objectFit="cover"
-              borderRadius={4}
-            />
-          </SwiperSlide>
+          {imageUrls?.map((url) => (
+            <SwiperSlide key={url}>
+              <Image key={url} src={url} objectFit="cover" borderRadius={4} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
       <HStack spacing={2}>

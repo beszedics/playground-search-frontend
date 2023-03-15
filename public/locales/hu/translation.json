@@ -39,5 +39,9 @@
   "editProfile": {
     "successfulEditProfile": "Sikeres profilmódosítás",
     "failedEditProfile": "Sikertelen profilmódosítás"
+  },
+  "playgrounds": {
+    "failed_to_load_images": "A képek betöltése nem sikerült",
+    "no_images_found": "Nem találhatóak képek"
   }
 }
