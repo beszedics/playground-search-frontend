@@ -14,7 +14,7 @@ import {
   Stack,
   useToast,
 } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SearchIcon } from '@chakra-ui/icons';
@@ -22,6 +22,7 @@ import Logo from '../Logo/Logo';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
 import { UserContext } from '../../context/UserContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -29,14 +30,20 @@ const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const toast = useToast();
+  const { i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  const changeLanguage = useCallback(() => {
+    const currentLanguage = i18n.language;
+    const newLanguage = currentLanguage === 'EN' ? 'HU' : 'EN';
+    i18n.changeLanguage(newLanguage);
+  }, []);
 
   const onSignUpClick = () => {
-    console.log('Sign up is clicked');
     setShowRegistrationModal(!showRegistrationModal);
   };
 
   const onLoginClick = () => {
-    console.log('Login is clicked');
     setShowLoginModal(!showLoginModal);
   };
 
@@ -67,14 +74,14 @@ const Header = () => {
         boxShadow="sm"
         wrap="wrap"
       >
-        <Box minW="200px">
+        <Box minW="200px" onClick={() => navigate('/')} cursor="pointer">
           <Logo />
         </Box>
-        <Box w="510px">
+        <Box w="500px">
           <InputGroup>
             <Input
               type="text"
-              placeholder="Search playground..."
+              placeholder={String(t('header.search_playground'))}
               focusBorderColor="teal.600"
             />
             <InputRightElement
@@ -84,33 +91,57 @@ const Header = () => {
             />
           </InputGroup>
         </Box>
-        {user?.status ? (
-          <Menu>
-            <MenuButton>
-              <Avatar
-                name={`${user.firstName} ${user.lastName}`}
-                bg="teal.400"
-              />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>{t('header.profile')}</MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={onLogoutClick}>{t('header.logout')}</MenuItem>
-            </MenuList>
-          </Menu>
-        ) : (
-          <Stack spacing={4} direction="row" align="center">
-            <Button colorScheme="teal" onClick={onSignUpClick}>
-              {t('header.signUp')}
-            </Button>
-            <Button colorScheme="teal" onClick={onLoginClick}>
-              {t('header.login')}
-            </Button>
-          </Stack>
-        )}
+        <HStack>
+          <Button onClick={changeLanguage}>
+            {i18n.language === 'EN' ? 'HU' : 'EN'}
+          </Button>
+          <Button as={Link} to="/admin">
+            {t('button.admin')}
+          </Button>
+          {user ? (
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  name={`${user.firstName} ${user.lastName}`}
+                  bg="teal.400"
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>{t('header.profile')}</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={onLogoutClick}>
+                  {t('header.logout')}
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Stack spacing={2} direction="row" align="center">
+              <Button colorScheme="teal" onClick={onSignUpClick}>
+                {t('header.signUp')}
+              </Button>
+              <Button colorScheme="teal" onClick={onLoginClick}>
+                {t('header.login')}
+              </Button>
+            </Stack>
+          )}
+        </HStack>
       </HStack>
-      {showRegistrationModal && <Registration isOpen onClose={onSignUpClick} />}
-      {showLoginModal && <Login isOpen onClose={onLoginClick} />}
+      {showRegistrationModal && (
+        <Registration
+          isOpen
+          onClose={onSignUpClick}
+          setShowLoginModal={setShowLoginModal}
+          setShowRegistrationModal={setShowRegistrationModal}
+        />
+      )}
+      {showLoginModal && (
+        <Login
+          isOpen
+          onClose={onLoginClick}
+          setShowRegistrationModal={setShowRegistrationModal}
+          setShowLoginModal={setShowLoginModal}
+        />
+      )}
     </>
   );
 };

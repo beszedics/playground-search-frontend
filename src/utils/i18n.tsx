@@ -17,27 +17,22 @@ i18n
     react: {
       useSuspense: false,
     },
-
     fallbackLng: 'en',
-    debug: true,
-
+    // debug: true,
     keySeparator: '.',
-
     saveMissing: true,
     missingKeyHandler: (lng, ns, key) => {
       const hash = `${key}/${ns}/${lng}`;
       if (missingKeys[hash]) {
         return;
       }
-
       missingKeys[hash] = true;
       console.warn(
         `Translation key is missing! [key]='${key}', lng='${lng}', ns='${ns}']`,
       );
     },
-
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false, // react already safeguards against XSS
     },
   });
 

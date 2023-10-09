@@ -1,9 +1,15 @@
 {
+  "button": {
+    "go_home": "Go to home",
+    "leave_admin": "Leave admin",
+    "admin": "Admin"
+  },
   "header": {
     "signUp": "Registration",
     "login": "Login",
     "logout": "Logout",
-    "profile": "Profile"
+    "profile": "Profile",
+    "search_playground": "Search playground..."
   },
   "loginModal": {
     "headerText": "Login to your account",
@@ -39,5 +45,22 @@
   "editProfile": {
     "successfulEditProfile": "Edited successful",
     "failedEditProfile": "Edited failed"
+  },
+  "playgrounds": {
+    "failed_to_load_images": "Failed to load images",
+    "no_images_found": "No images found",
+    "no_opening_hours": "No information about opening hours",
+    "reviews": "reviews",
+    "number_of_ratings": "There are {{sumOfComment}} ratings",
+    "no_ratings": "There are no ratings yet"
+  },
+  "ratings": {
+    "no_rating": "No rating",
+    "says": "says"
+  },
+  "errors": {
+    "no_geolocation": "Geolocation is not supported by your browser",
+    "error_occurred": "An error occurred: {{errorMessage}}",
+    "something_went_wrong": "Oops, something went wrong!"
   }
 }
