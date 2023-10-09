@@ -6,8 +6,15 @@ const onClose = jest.fn();
 
 describe('Login unit test', () => {
   it('Username and password input field is shown', async () => {
+    const setShowRegistrationModal = jest.fn();
+    const setShowLoginModal = jest.fn();
     const { getByRole, getByLabelText } = render(
-      <Login isOpen onClose={onClose} />,
+      <Login
+        isOpen
+        onClose={onClose}
+        setShowRegistrationModal={setShowRegistrationModal}
+        setShowLoginModal={setShowLoginModal}
+      />,
     );
 
     const usernameInput = getByRole('textbox', {
@@ -21,7 +28,16 @@ describe('Login unit test', () => {
   });
 
   it('Sign up button is shown with the need an account text', async () => {
-    const { getByRole, getByText } = render(<Login isOpen onClose={onClose} />);
+    const setShowRegistrationModal = jest.fn();
+    const setShowLoginModal = jest.fn();
+    const { getByRole, getByText } = render(
+      <Login
+        isOpen
+        onClose={onClose}
+        setShowRegistrationModal={setShowRegistrationModal}
+        setShowLoginModal={setShowLoginModal}
+      />,
+    );
 
     const needAnAccountText = getByText(/loginModal.registrationText/i);
 

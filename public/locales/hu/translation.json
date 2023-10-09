@@ -1,9 +1,15 @@
 {
+  "button": {
+    "go_home": "Vissza a főoldalra",
+    "leave_admin": "Admin elhagyása",
+    "admin": "Admin"
+  },
   "header": {
     "signUp": "Regisztráció",
     "login": "Bejelentkezés",
     "logout": "Kijelentkezés",
-    "profile": "Profil"
+    "profile": "Profil",
+    "search_playground": "Játószér keresés..."
   },
   "loginModal": {
     "headerText": "Jelentkezz be a profilodba",
@@ -42,6 +48,19 @@
   },
   "playgrounds": {
     "failed_to_load_images": "A képek betöltése nem sikerült",
-    "no_images_found": "Nem találhatóak képek"
+    "no_images_found": "Nem találhatóak képek",
+    "no_opening_hours": "Nincs információ a nyitvatartásról",
+    "reviews": "értékelés",
+    "number_of_ratings": "Összesen {{sumOfComment}} értékelés található",
+    "no_rating": "Nem található értékelés"
+  },
+  "ratings": {
+    "no_rating": "Nincs értékelés",
+    "says": "írja"
+  },
+  "errors": {
+    "no_geolocation": "A böngésződ nem támogatja a geolokációt",
+    "error_occurred": "Hiba történt: {{errorMessage}}",
+    "something_went_wrong": "Hoppá, valami hiba történt!"
   }
 }
