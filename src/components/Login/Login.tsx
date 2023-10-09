@@ -14,7 +14,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React, { Dispatch, SetStateAction, useContext } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -25,6 +25,8 @@ import { UserContext } from '../../context/UserContext';
 type LoginProps = {
   isOpen: boolean;
   onClose: () => void;
+  setShowRegistrationModal: Dispatch<SetStateAction<boolean>>;
+  setShowLoginModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const LoginValidationSchema = Yup.object().shape({
@@ -32,7 +34,12 @@ const LoginValidationSchema = Yup.object().shape({
   password: Yup.string().required('Password is required!'),
 });
 
-const Login = ({ isOpen, onClose }: LoginProps) => {
+const Login = ({
+  isOpen,
+  onClose,
+  setShowRegistrationModal,
+  setShowLoginModal,
+}: LoginProps) => {
   const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
   const toast = useToast();
@@ -100,9 +107,8 @@ const Login = ({ isOpen, onClose }: LoginProps) => {
   });
 
   const onSignUpClick = () => {
-    console.log('onSignUpClicked');
-
-    // TODO navigate to registration modal
+    setShowLoginModal(false);
+    setShowRegistrationModal(true);
   };
 
   return (

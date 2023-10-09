@@ -12,13 +12,18 @@ const Profile = () => {
   const { t } = useTranslation();
 
   const onEditProfileClick = () => {
-    console.log('EditProfile is clicked');
     setShowEditProfile(!showEditProfile);
   };
 
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="center">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        maxW="700px"
+      >
         <Box mb={6}>
           <Avatar name={`${user?.firstName} ${user?.lastName}`} size="xl" />
         </Box>

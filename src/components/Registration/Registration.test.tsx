@@ -6,8 +6,15 @@ const onClose = jest.fn();
 
 describe('Registration unit test', () => {
   it('Username and password input field is shown', async () => {
+    const setShowLoginModal = jest.fn();
+    const setShowRegistrationModal = jest.fn();
     const { getByRole, getByLabelText } = render(
-      <Registration isOpen onClose={onClose} />,
+      <Registration
+        isOpen
+        onClose={onClose}
+        setShowLoginModal={setShowLoginModal}
+        setShowRegistrationModal={setShowRegistrationModal}
+      />,
     );
 
     const firstNameInput = getByRole('textbox', {
@@ -36,8 +43,15 @@ describe('Registration unit test', () => {
   });
 
   it('Log in button is shown with the already have an account text', async () => {
+    const setShowLoginModal = jest.fn();
+    const setShowRegistrationModal = jest.fn();
     const { getByRole, getByText } = render(
-      <Registration isOpen onClose={onClose} />,
+      <Registration
+        isOpen
+        onClose={onClose}
+        setShowLoginModal={setShowLoginModal}
+        setShowRegistrationModal={setShowRegistrationModal}
+      />,
     );
 
     const alreadyHaveAnAccountText = getByText(/registrationModal.loginText/i);

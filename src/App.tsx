@@ -1,23 +1,64 @@
 import React from 'react';
 import { ChakraProvider, theme } from '@chakra-ui/react';
-import Comment from './components/Comment/Comment';
-import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
 import { UserProvider } from './context/UserContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Main from './components/Main/Main';
+import { UserLocationProvider } from './context/UserLocation';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Error from './components/Error/Error';
+import ReactAdmin from './admin/Admin';
+import PlaygroundDetail from './components/PlaygroundDetail/PlaygroundDetail';
+
+const AppHeader = () => {
+  return (
+    <>
+      <UserLocationProvider>
+        <UserProvider />
+        <Header />
+      </UserLocationProvider>
+    </>
+  );
+};
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <>
+        <AppHeader />
+        <Main />
+      </>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: '/playgrounds/:playgroundId',
+    element: (
+      <>
+        <AppHeader />
+        <PlaygroundDetail />
+      </>
+    ),
+  },
+  {
+    path: '/admin',
+    element: <ReactAdmin />,
+  },
+  {
+    path: '/admin/*',
+    element: <ReactAdmin />,
+  },
+]);
 
 export const App = () => {
+  const queryClient = new QueryClient();
+
   return (
     <ChakraProvider theme={theme}>
-      <UserProvider>
-        <Header />
-        <Comment
-          userName="Tamas Beszedics"
-          playgroundRating={5}
-          description="This playground is full of well-equipped equipment that’s why I give it five stars. We are looking forward to come back later."
-          dateTime="Nov 28., 2022 at 23:18"
-        />
-        <Profile />
-      </UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ChakraProvider>
   );
 };

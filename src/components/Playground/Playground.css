@@ -1,0 +1,25 @@
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+  background: #319795;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 25px;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container .favorite__icon > svg {
+  fill: #319795;
+  width: 40px;
+  height: 40px;
+}
