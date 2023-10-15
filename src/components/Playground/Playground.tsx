@@ -4,6 +4,7 @@ import {
   HStack,
   IconButton,
   Image,
+  Stack,
   Text,
 } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
@@ -12,6 +13,12 @@ import { TiLocationArrowOutline } from 'react-icons/ti';
 import { MdAccessTime, MdFavoriteBorder } from 'react-icons/md';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from 'react-share';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -24,6 +31,9 @@ import { PlaygroundType } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import Equipment from '../Equipment/Equipment';
 import Score from '../Rating/Score';
+
+const PLAYGROUND_SEARCH_WEB_URI =
+  process.env.REACT_APP_PLAYGROUND_SEARCH_WEB_URI;
 
 const Playground = ({
   id,
@@ -47,6 +57,11 @@ const Playground = ({
     },
     [],
   );
+
+  const handleSocialIconClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
 
   const imagesQuery = useQuery({
     queryKey: ['images'],
@@ -117,22 +132,38 @@ const Playground = ({
       </Box>
       <Box p={4}>
         <Box>
-          <Text
-            display="flex"
-            alignItems="center"
-            color="#1B4965"
-            fontSize="20px"
-            fontWeight={700}
-          >
-            <Icon
-              as={TiLocationArrowOutline}
-              w={6}
-              h={6}
-              color="teal.500"
-              mr={1}
-            />
-            {name}
-          </Text>
+          <Stack direction="row" justifyContent="space-between">
+            <Text
+              display="flex"
+              alignItems="center"
+              color="#1B4965"
+              fontSize="20px"
+              fontWeight={700}
+            >
+              <Icon
+                as={TiLocationArrowOutline}
+                w={6}
+                h={6}
+                color="teal.500"
+                mr={1}
+              />
+              {name}
+            </Text>
+            <Stack direction="row">
+              <FacebookShareButton
+                url={String(PLAYGROUND_SEARCH_WEB_URI)}
+                onClick={handleSocialIconClick}
+              >
+                <FacebookIcon size={24} round />
+              </FacebookShareButton>
+              <WhatsappShareButton
+                url={String(PLAYGROUND_SEARCH_WEB_URI)}
+                onClick={handleSocialIconClick}
+              >
+                <WhatsappIcon size={24} round />
+              </WhatsappShareButton>
+            </Stack>
+          </Stack>
           <Text color="#1B4965" fontSize="16px" fontWeight={400} ml={7}>
             {address}
           </Text>
