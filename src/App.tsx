@@ -13,10 +13,8 @@ import PlaygroundDetail from './components/PlaygroundDetail/PlaygroundDetail';
 const AppHeader = () => {
   return (
     <>
-      <UserLocationProvider>
-        <UserProvider />
-        <Header />
-      </UserLocationProvider>
+      <UserProvider />
+      <Header />
     </>
   );
 };
@@ -26,8 +24,10 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
-        <AppHeader />
-        <Main />
+        <UserLocationProvider>
+          <AppHeader />
+          <Main />
+        </UserLocationProvider>
       </>
     ),
     errorElement: <Error />,
@@ -36,10 +36,13 @@ const router = createBrowserRouter([
     path: '/playgrounds/:playgroundId',
     element: (
       <>
-        <AppHeader />
-        <PlaygroundDetail />
+        <UserLocationProvider>
+          <AppHeader />
+          <PlaygroundDetail />
+        </UserLocationProvider>
       </>
     ),
+    errorElement: <Error />,
   },
   {
     path: '/admin',

@@ -26,19 +26,28 @@ const PlaygroundDetail = () => {
     isLoading: playgroundDetailIsLoading,
   } = playgroundDetailQuery;
 
-  if (playgroundDetailIsLoading) {
-    return (
-      <CircularProgress
-        color="teal.500"
-        size={7}
-        thickness={10}
-        isIndeterminate
-      />
-    );
-  }
-
   return (
     <Flex>
+      {playgroundDetailIsLoading && (
+        <Flex
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+          position="fixed"
+          top="0"
+          left="0"
+          width="100%"
+          background="rgba(255, 255, 255, 0.7)"
+          zIndex="999"
+        >
+          <CircularProgress
+            color="teal.500"
+            size={12}
+            thickness={10}
+            isIndeterminate
+          />
+        </Flex>
+      )}
       <Box flex="1" p="4">
         <Playground
           id={playgroundDetailData.id}

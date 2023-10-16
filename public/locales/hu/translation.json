@@ -2,7 +2,11 @@
   "button": {
     "go_home": "Vissza a főoldalra",
     "leave_admin": "Admin elhagyása",
-    "admin": "Admin"
+    "admin": "Admin",
+    "add_playground": "Játszótér hozzáadása",
+    "cancel": "Mégsem",
+    "save": "Mentés",
+    "add": "Hozzáadás"
   },
   "header": {
     "signUp": "Regisztráció",
@@ -52,7 +56,24 @@
     "no_opening_hours": "Nincs információ a nyitvatartásról",
     "reviews": "értékelés",
     "number_of_ratings": "Összesen {{sumOfComment}} értékelés található",
-    "no_rating": "Nem található értékelés"
+    "no_rating": "Nem található értékelés",
+    "number_of_available_playgrounds": "Összesen {{sumOfAvailablePlaygrounds}} játszótér található",
+    "no_playgrounds": "Nem található játszótér"
+  },
+  "addNewPlaygroundModal": {
+    "title": "Játszótér hozzáadása",
+    "name": "Név",
+    "address": "Cím",
+    "openingHours": "Nyitvatartás",
+    "errors": {
+      "name": "Név megadása kötelező",
+      "address": "Cím megadása kötelező",
+      "latitude": "Latitude megadása kötelező",
+      "longitude": "Longitude megadása kötelező",
+      "failed_add_playground": "Új játszótér hozzáadása sikertelen",
+      "login_to_add_new_playground": "Kérlek, először jelentkezz be az új játszótér hozzáadásához"
+    },
+    "success_add_playground": "Új játszótér sikeresen hozzáadva"
   },
   "ratings": {
     "no_rating": "Nincs értékelés",
