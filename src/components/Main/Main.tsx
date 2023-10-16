@@ -52,16 +52,16 @@ const Main = () => {
     setShowAddNewPlaygroundModal(!showAddNewPlaygroundModal);
   };
 
-  const filteredPlaygrounds = playgroundsData?.filter(
-    (playground: PlaygroundType) => {
-      const { name, address } = playground;
-      const searchValue = searchItem.toLowerCase();
-      return (
-        name.toLowerCase().includes(searchValue) ||
-        address.toLowerCase().includes(searchValue)
-      );
-    },
-  );
+  const filteredPlaygrounds = Array.isArray(playgroundsData)
+    ? playgroundsData.filter((playground: PlaygroundType) => {
+        const { name, address } = playground;
+        const searchValue = searchItem.toLowerCase();
+        return (
+          name.toLowerCase().includes(searchValue) ||
+          address.toLowerCase().includes(searchValue)
+        );
+      })
+    : [];
 
   const availablePlaygrounds = filteredPlaygrounds?.length;
 
