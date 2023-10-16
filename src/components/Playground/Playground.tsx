@@ -177,7 +177,7 @@ const Playground = ({
         <Box display="flex" alignItems="center" my={3}>
           <Icon as={MdAccessTime} w={6} h={6} color="teal.500" mr={1} />
           <Text color="#1B4965" fontSize="16px" fontWeight={400}>
-            {openingHours !== null
+            {openingHours !== null && openingHours !== ''
               ? openingHours
               : t('playgrounds.no_opening_hours')}
           </Text>

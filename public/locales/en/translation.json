@@ -2,7 +2,11 @@
   "button": {
     "go_home": "Go to home",
     "leave_admin": "Leave admin",
-    "admin": "Admin"
+    "admin": "Admin",
+    "add_playground": "Add playground",
+    "cancel": "Cancel",
+    "save": "Save",
+    "add": "Add"
   },
   "header": {
     "signUp": "Registration",
@@ -52,7 +56,24 @@
     "no_opening_hours": "No information about opening hours",
     "reviews": "reviews",
     "number_of_ratings": "There are {{sumOfComment}} ratings",
-    "no_ratings": "There are no ratings yet"
+    "no_ratings": "There are no ratings yet",
+    "number_of_available_playgrounds": "There are {{sumOfAvailablePlaygrounds}} playgrounds",
+    "no_playgrounds": "There are no playgronds yet"
+  },
+  "addNewPlaygroundModal": {
+    "title": "Add playground",
+    "name": "Name",
+    "address": "Address",
+    "openingHours": "Opening hours",
+    "errors": {
+      "name": "Name is required",
+      "address": "Address is required",
+      "latitude": "Latitude is required",
+      "longitude": "Longitude is required",
+      "failed_add_playground": "Failed to add new playground",
+      "login_to_add_new_playground": "Please, first log in to add a new playground"
+    },
+    "success_add_playground": "New playground added successfully"
   },
   "ratings": {
     "no_rating": "No rating",
