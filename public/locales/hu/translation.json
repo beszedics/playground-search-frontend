@@ -13,7 +13,8 @@
     "login": "Bejelentkezés",
     "logout": "Kijelentkezés",
     "profile": "Profil",
-    "search_playground": "Játszótér keresés..."
+    "search_playground": "Játszótér keresése...",
+    "search_info_label": "Név és/vagy cím alapján tudsz keresni a játszóterek között"
   },
   "loginModal": {
     "headerText": "Jelentkezz be a profilodba",
