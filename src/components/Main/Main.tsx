@@ -16,11 +16,13 @@ import { PlaygroundType } from '../../utils/types';
 import { useTranslation } from 'react-i18next';
 import NewPlayground from '../Modal/NewPlayground';
 import { UserContext } from '../../context/UserContext';
+import { useSearch } from '../../context/SearchContext';
 
 const Main = () => {
   const { t } = useTranslation();
   const toast = useToast();
   const { user } = useContext(UserContext);
+  const { searchItem } = useSearch();
   const [showAddNewPlaygroundModal, setShowAddNewPlaygroundModal] =
     useState(false);
 
@@ -50,7 +52,18 @@ const Main = () => {
     setShowAddNewPlaygroundModal(!showAddNewPlaygroundModal);
   };
 
-  const availablePlaygrounds = playgroundsData?.length;
+  const filteredPlaygrounds = playgroundsData?.filter(
+    (playground: PlaygroundType) => {
+      const { name, address } = playground;
+      const searchValue = searchItem.toLowerCase();
+      return (
+        name.toLowerCase().includes(searchValue) ||
+        address.toLowerCase().includes(searchValue)
+      );
+    },
+  );
+
+  const availablePlaygrounds = filteredPlaygrounds?.length;
 
   return (
     <>
@@ -99,8 +112,8 @@ const Main = () => {
           </Button>
         </Stack>
         <HStack h="100%" spacing={4}>
-          {playgroundsData && Array.isArray(playgroundsData) ? (
-            playgroundsData.map((playground: PlaygroundType) => (
+          {filteredPlaygrounds && Array.isArray(filteredPlaygrounds) ? (
+            filteredPlaygrounds?.map((playground: PlaygroundType) => (
               <Playground
                 id={playground.id}
                 key={playground.address}

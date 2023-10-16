@@ -13,7 +13,8 @@
     "login": "Login",
     "logout": "Logout",
     "profile": "Profile",
-    "search_playground": "Search playground..."
+    "search_playground": "Search playground...",
+    "search_info_label": "You can search playgrounds by name and/or address"
   },
   "loginModal": {
     "headerText": "Login to your account",

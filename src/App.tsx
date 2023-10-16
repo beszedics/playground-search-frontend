@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Error from './components/Error/Error';
 import ReactAdmin from './admin/Admin';
 import PlaygroundDetail from './components/PlaygroundDetail/PlaygroundDetail';
+import { SearchProvider } from './context/SearchContext';
 
 const AppHeader = () => {
   return (
@@ -60,7 +61,9 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <SearchProvider>
+          <RouterProvider router={router} />
+        </SearchProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );
