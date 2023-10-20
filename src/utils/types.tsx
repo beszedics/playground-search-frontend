@@ -5,6 +5,7 @@ export type PlaygroundType = {
   longitude: number;
   latitude: number;
   openingHours: string;
+  isPublished: boolean;
   equipments: EquipmentType[];
   images?: string[];
   averageRating: number;

@@ -52,8 +52,14 @@ const Main = () => {
     setShowAddNewPlaygroundModal(!showAddNewPlaygroundModal);
   };
 
-  const filteredPlaygrounds = Array.isArray(playgroundsData)
-    ? playgroundsData.filter((playground: PlaygroundType) => {
+  const isPublishedPlaygrounds = Array.isArray(playgroundsData)
+    ? playgroundsData.filter(
+        (playground: PlaygroundType) => playground.isPublished,
+      )
+    : [];
+
+  const filteredPlaygrounds = Array.isArray(isPublishedPlaygrounds)
+    ? isPublishedPlaygrounds.filter((playground: PlaygroundType) => {
         const { name, address } = playground;
         const searchValue = searchItem.toLowerCase();
         return (
@@ -125,6 +131,7 @@ const Main = () => {
                 averageRating={playground.averageRating}
                 totalReviews={playground.totalReviews}
                 openingHours={playground.openingHours}
+                isPublished={playground.isPublished}
               />
             ))
           ) : (
