@@ -56,6 +56,7 @@ const PlaygroundDetail = () => {
           latitude={playgroundDetailData.latitude}
           longitude={playgroundDetailData.longitude}
           openingHours={playgroundDetailData.openingHours}
+          isPublished={playgroundDetailData.isPublished}
           ratings={playgroundDetailData.ratings}
           equipments={playgroundDetailData.equipments}
           averageRating={playgroundDetailData.averageRating}

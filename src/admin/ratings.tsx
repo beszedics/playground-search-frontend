@@ -7,16 +7,11 @@ import {
   Show,
   SimpleShowLayout,
   TextField,
-  TextInput,
 } from 'react-admin';
 import React from 'react';
 
-const ratingFilters = [
-  <TextInput key="nemtudom" source="q" label="Search" alwaysOn />,
-];
-
 export const RatingList = () => (
-  <List filters={ratingFilters}>
+  <List>
     <Datagrid rowClick="show">
       <TextField source="id" />
       <NumberField source="score" />
