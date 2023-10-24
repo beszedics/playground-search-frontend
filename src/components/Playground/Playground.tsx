@@ -63,33 +63,34 @@ const Playground = ({
     event.stopPropagation();
   };
 
-  const imagesQuery = useQuery({
-    queryKey: ['images'],
-    queryFn: () => axios({ url: '/images' }).then((response) => response.data),
-  });
+  // const imagesQuery = useQuery({
+  //   queryKey: ['images'],
+  //   queryFn: () => axios({ url: '/images' }).then((response) => response.data),
+  // });
 
-  const {
-    data: imagesData,
-    error: imagesError,
-    isLoading: imagesIsLoading,
-  } = imagesQuery;
+  // const {
+  //   data: imagesData,
+  //   error: imagesError,
+  //   isLoading: imagesIsLoading,
+  // } = imagesQuery;
 
-  if (imagesIsLoading) {
-    return (
-      <CircularProgress
-        color="teal.500"
-        size={7}
-        thickness={10}
-        isIndeterminate
-      />
-    );
-  }
+  // if (imagesIsLoading) {
+  //   return (
+  //     <CircularProgress
+  //       color="teal.500"
+  //       size={7}
+  //       thickness={10}
+  //       isIndeterminate
+  //     />
+  //   );
+  // }
 
   return (
     <Box
       id={String(id)}
       maxW={350}
-      minH={500}
+      minW={250}
+      // minH={500}
       maxH={600}
       cursor="pointer"
       borderWidth="1px"
@@ -108,7 +109,7 @@ const Playground = ({
             disableOnInteraction: false,
           }}
         >
-          {imagesData?.imageUrls.map((imageUrl: string) => {
+          {/* {imagesData?.imageUrls.map((imageUrl: string) => {
             return (
               <SwiperSlide key={imageUrl} className="image-container">
                 <Image src={imageUrl} objectFit="cover" borderRadius={4} />
@@ -127,7 +128,7 @@ const Playground = ({
                 />
               </SwiperSlide>
             );
-          })}
+          })} */}
         </Swiper>
       </Box>
       <Box p={4}>

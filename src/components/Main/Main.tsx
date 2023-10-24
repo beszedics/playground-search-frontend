@@ -10,6 +10,7 @@ import {
   HStack,
   Stack,
   Text,
+  Wrap,
   useToast,
 } from '@chakra-ui/react';
 import { PlaygroundType } from '../../utils/types';
@@ -17,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import NewPlayground from '../Modal/NewPlayground';
 import { UserContext } from '../../context/UserContext';
 import { useSearch } from '../../context/SearchContext';
+import Map from '../Map/Map';
 
 const Main = () => {
   const { t } = useTranslation();
@@ -72,8 +74,8 @@ const Main = () => {
   const availablePlaygrounds = filteredPlaygrounds?.length;
 
   return (
-    <>
-      <Box p={4}>
+    <Flex>
+      <Box flex="1" p={4} overflowY="auto">
         {playgroundsIsLoading && (
           <Flex
             justifyContent="center"
@@ -117,7 +119,7 @@ const Main = () => {
             {t('button.add_playground')}
           </Button>
         </Stack>
-        <HStack h="100%" spacing={4}>
+        <Wrap spacing={4}>
           {filteredPlaygrounds && Array.isArray(filteredPlaygrounds) ? (
             filteredPlaygrounds?.map((playground: PlaygroundType) => (
               <Playground
@@ -137,12 +139,17 @@ const Main = () => {
           ) : (
             <Text>{t('playgrounds.no_playgrounds')}</Text>
           )}
-        </HStack>
+        </Wrap>
       </Box>
+      {playgroundsData && playgroundsData.length > 0 && (
+        <Box flex="1" p="4">
+          <Map playgrounds={isPublishedPlaygrounds} />
+        </Box>
+      )}
       {showAddNewPlaygroundModal && (
         <NewPlayground isOpen onClose={onAddNewPlaygroundClick} />
       )}
-    </>
+    </Flex>
   );
 };
 
