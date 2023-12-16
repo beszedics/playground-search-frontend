@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Playground from '../Playground/Playground';
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../api/axios';
@@ -7,23 +7,22 @@ import {
   Button,
   CircularProgress,
   Flex,
-  HStack,
+  SimpleGrid,
   Stack,
   Text,
-  Wrap,
   useToast,
 } from '@chakra-ui/react';
 import { PlaygroundType } from '../../utils/types';
 import { useTranslation } from 'react-i18next';
 import NewPlayground from '../Modal/NewPlayground';
-import { UserContext } from '../../context/UserContext';
+import { useUser } from '../../context/UserContext';
 import { useSearch } from '../../context/SearchContext';
 import Map from '../Map/Map';
 
 const Main = () => {
   const { t } = useTranslation();
   const toast = useToast();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const { searchItem } = useSearch();
   const [showAddNewPlaygroundModal, setShowAddNewPlaygroundModal] =
     useState(false);
@@ -43,7 +42,7 @@ const Main = () => {
   const onAddNewPlaygroundClick = () => {
     if (!user) {
       toast({
-        title: t('addNewPlaygroundModal.errors.login_to_add_new_playground'),
+        title: t('add_new_playground_modal.errors.login_to_add_new_playground'),
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -74,8 +73,8 @@ const Main = () => {
   const availablePlaygrounds = filteredPlaygrounds?.length;
 
   return (
-    <Flex>
-      <Box flex="1" p={4} overflowY="auto">
+    <SimpleGrid columns={[1, null, 2]}>
+      <Box p={4} overflowY="auto">
         {playgroundsIsLoading && (
           <Flex
             justifyContent="center"
@@ -119,7 +118,7 @@ const Main = () => {
             {t('button.add_playground')}
           </Button>
         </Stack>
-        <Wrap spacing={4}>
+        <SimpleGrid columns={2} spacing={4}>
           {filteredPlaygrounds && Array.isArray(filteredPlaygrounds) ? (
             filteredPlaygrounds?.map((playground: PlaygroundType) => (
               <Playground
@@ -139,17 +138,17 @@ const Main = () => {
           ) : (
             <Text>{t('playgrounds.no_playgrounds')}</Text>
           )}
-        </Wrap>
+        </SimpleGrid>
       </Box>
       {playgroundsData && playgroundsData.length > 0 && (
-        <Box flex="1" p="4">
+        <Box p="4">
           <Map playgrounds={isPublishedPlaygrounds} />
         </Box>
       )}
       {showAddNewPlaygroundModal && (
         <NewPlayground isOpen onClose={onAddNewPlaygroundClick} />
       )}
-    </Flex>
+    </SimpleGrid>
   );
 };
 

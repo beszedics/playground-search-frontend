@@ -16,13 +16,13 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
-import { UserContext } from '../../context/UserContext';
 import axios from '../../api/axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useUser } from '../../context/UserContext';
 
 type EditProfileProps = {
   isOpen: boolean;
@@ -42,7 +42,7 @@ const EditProfile = ({ isOpen, onClose }: EditProfileProps) => {
   const toast = useToast();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   const formik = useFormik({
     initialValues: {
@@ -58,10 +58,10 @@ const EditProfile = ({ isOpen, onClose }: EditProfileProps) => {
     onSubmit: (values) => {
       const data = {
         id: user?.id,
-        firstName: values.firstName,
-        lastName: values.lastName,
         email: values.email,
         username: values.username,
+        firstName: values.firstName,
+        lastName: values.lastName,
         password: values.password,
       };
       axios({
@@ -86,7 +86,7 @@ const EditProfile = ({ isOpen, onClose }: EditProfileProps) => {
               lastName: res.data.updatedUser[1][0].lastName,
               email: res.data.updatedUser[1][0].email,
               username: res.data.updatedUser[1][0].username,
-              status: true,
+              isLoggedIn: true,
             });
             toast({
               title: t('editProfile.successfulEditProfile'),

@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, CircularProgress, Flex, Text } from '@chakra-ui/react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { UserLocationContext } from '../../context/UserLocation';
+import { useUserLocation } from '../../context/UserLocation';
 import { PlaygroundType } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ type MapProps = {
 
 const Map = ({ playgrounds }: MapProps) => {
   const navigate = useNavigate();
-  const { latitude, longitude } = useContext(UserLocationContext);
+  const { latitude, longitude } = useUserLocation();
 
   const handlePopupNavigateToPlayground = (playground: PlaygroundType) =>
     navigate(`playgrounds/${playground.id}`);
@@ -62,9 +62,9 @@ const Map = ({ playgrounds }: MapProps) => {
         </Flex>
       )}
       <MapContainer
-        style={{ height: `calc(100vh - 80px)`, width: '100%' }}
+        style={{ height: `calc(100vh - 110px)`, width: '100%' }}
         center={[latitude ?? 47.497913, longitude ?? 19.040236]}
-        zoom={8}
+        zoom={10}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

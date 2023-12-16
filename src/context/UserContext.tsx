@@ -5,26 +5,26 @@ import React, {
   ReactNode,
   ReactPortal,
   SetStateAction,
-  useEffect,
+  useContext,
   useState,
 } from 'react';
-import axios from '../api/axios';
 
-type User = {
+export type User = {
   id?: string;
-  firstName?: string;
-  lastName?: string;
   email?: string;
   username?: string;
+  firstName?: string;
+  lastName?: string;
+  isAdmin?: boolean;
   password?: string;
-  status?: boolean;
+  isLoggedIn?: boolean;
   created_at?: string;
   updated_at?: string;
 };
 
 type UserContext = {
-  user?: User;
-  setUser?: Dispatch<SetStateAction<User | undefined>>;
+  user: User | null;
+  setUser?: Dispatch<SetStateAction<User | null>>;
   error?: ErrorProps;
 };
 
@@ -42,38 +42,20 @@ type UserProviderProps = {
     | undefined;
 };
 
-export const UserContext = createContext<UserContext>({});
+export const UserContext = createContext<UserContext>({ user: null });
+
+export const useUser = () => {
+  const user = useContext(UserContext);
+
+  if (!user) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  return user;
+};
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<ErrorProps>();
-
-  useEffect(() => {
-    axios({
-      url: '/auth',
-      method: 'GET',
-      headers: {
-        token: localStorage.getItem('token'),
-      },
-    })
-      .then((res) => {
-        if (res.data.error) {
-          setUser?.({ ...user, status: false });
-        } else {
-          setUser?.({
-            id: res.data.id,
-            firstName: res.data.firstName,
-            lastName: res.data.lastName,
-            email: res.data.email,
-            username: res.data.username,
-            status: true,
-          });
-        }
-      })
-      .catch((error) => {
-        throw new Error(error.message);
-      });
-  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser, error }}>

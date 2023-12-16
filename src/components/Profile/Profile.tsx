@@ -1,12 +1,12 @@
 import { Box, Button, FormControl, Input } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Avatar from '../Avatar/Avatar';
 import { useTranslation } from 'react-i18next';
 import EditProfile from '../Modal/EditProfile';
-import { UserContext } from '../../context/UserContext';
+import { useUser } from '../../context/UserContext';
 
 const Profile = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   const { t } = useTranslation();

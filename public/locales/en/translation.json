@@ -4,9 +4,14 @@
     "leave_admin": "Leave admin",
     "admin": "Admin",
     "add_playground": "Add playground",
+    "add_rating": "Add rating",
+    "add_equipment": "Add equipment",
     "cancel": "Cancel",
     "save": "Save",
     "add": "Add"
+  },
+  "tooltip": {
+    "add_to_favorite": "Add to favorite"
   },
   "header": {
     "signUp": "Registration",
@@ -57,11 +62,12 @@
     "no_opening_hours": "No information about opening hours",
     "reviews": "reviews",
     "number_of_ratings": "There are {{sumOfComment}} ratings",
-    "no_ratings": "There are no ratings yet",
+    "no_rating": "There are no ratings yet",
     "number_of_available_playgrounds": "There are {{sumOfAvailablePlaygrounds}} playgrounds",
-    "no_playgrounds": "There are no playgronds yet"
+    "no_playgrounds": "There are no playgronds yet",
+    "equipments": "Equipments"
   },
-  "addNewPlaygroundModal": {
+  "add_new_playground_modal": {
     "title": "Add playground",
     "name": "Name",
     "address": "Address",
@@ -79,6 +85,14 @@
   "ratings": {
     "no_rating": "No rating",
     "says": "says"
+  },
+  "add_new_rating_modal": {
+    "title": "Add rating",
+    "score": "Score",
+    "comment": "Comment",
+    "errors": {
+      "score": "Score is required"
+    }
   },
   "errors": {
     "no_geolocation": "Geolocation is not supported by your browser",

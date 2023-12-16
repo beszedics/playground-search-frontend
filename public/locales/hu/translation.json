@@ -4,9 +4,14 @@
     "leave_admin": "Admin elhagyása",
     "admin": "Admin",
     "add_playground": "Játszótér hozzáadása",
+    "add_rating": "Értékelés hozzáadása",
+    "add_equipment": "Eszköz hozzáadása",
     "cancel": "Mégsem",
     "save": "Mentés",
     "add": "Hozzáadás"
+  },
+  "tooltip": {
+    "add_to_favorite": "Hozzáadás a kedvencekhez"
   },
   "header": {
     "signUp": "Regisztráció",
@@ -59,9 +64,10 @@
     "number_of_ratings": "Összesen {{sumOfComment}} értékelés található",
     "no_rating": "Nem található értékelés",
     "number_of_available_playgrounds": "Összesen {{sumOfAvailablePlaygrounds}} játszótér található",
-    "no_playgrounds": "Nem található játszótér"
+    "no_playgrounds": "Nem található játszótér",
+    "equipments": "Eszközök"
   },
-  "addNewPlaygroundModal": {
+  "add_new_playground_modal": {
     "title": "Játszótér hozzáadása",
     "name": "Név",
     "address": "Cím",
@@ -79,6 +85,14 @@
   "ratings": {
     "no_rating": "Nincs értékelés",
     "says": "írja"
+  },
+  "add_new_rating_modal": {
+    "title": "Add rating",
+    "score": "Score",
+    "comment": "Comment",
+    "errors": {
+      "score": "Pontszám megadása kötelező"
+    }
   },
   "errors": {
     "no_geolocation": "A böngésződ nem támogatja a geolokációt",
