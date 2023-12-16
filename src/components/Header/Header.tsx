@@ -5,6 +5,7 @@ import {
   HStack,
   Input,
   InputGroup,
+  InputLeftElement,
   InputRightElement,
   Menu,
   MenuButton,
@@ -12,23 +13,27 @@ import {
   MenuItem,
   MenuList,
   Stack,
+  Tooltip,
   useToast,
 } from '@chakra-ui/react';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 import { SearchIcon } from '@chakra-ui/icons';
 import Logo from '../Logo/Logo';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
-import { UserContext } from '../../context/UserContext';
+import { useUser } from '../../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSearch } from '../../context/SearchContext';
 
 const Header = () => {
   const { t } = useTranslation();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
+  const { searchItem, handleInputChange } = useSearch();
   const toast = useToast();
   const { i18n } = useTranslation();
   const navigate = useNavigate();
@@ -49,7 +54,7 @@ const Header = () => {
 
   const onLogoutClick = () => {
     localStorage.removeItem('token');
-    setUser?.({ status: false });
+    setUser?.(null);
     toast({
       title: t('loginModal.successfulLogout'),
       description: t('loginModal.bye'),
@@ -81,8 +86,18 @@ const Header = () => {
           <InputGroup>
             <Input
               type="text"
+              value={searchItem}
+              onChange={handleInputChange}
               placeholder={String(t('header.search_playground'))}
               focusBorderColor="teal.600"
+            />
+            <InputLeftElement
+              // eslint-disable-next-line react/no-children-prop
+              children={
+                <Tooltip label={t('header.search_info_label')} fontSize="md">
+                  <InfoOutlineIcon color="gray.500" />
+                </Tooltip>
+              }
             />
             <InputRightElement
               pointerEvents="none"
@@ -95,10 +110,12 @@ const Header = () => {
           <Button onClick={changeLanguage}>
             {i18n.language === 'EN' ? 'HU' : 'EN'}
           </Button>
-          <Button as={Link} to="/admin">
-            {t('button.admin')}
-          </Button>
-          {user ? (
+          {user && user.isAdmin && (
+            <Button as={Link} to="/admin">
+              {t('button.admin').toUpperCase()}
+            </Button>
+          )}
+          {user && user.isLoggedIn ? (
             <Menu>
               <MenuButton>
                 <Avatar
@@ -106,7 +123,7 @@ const Header = () => {
                   bg="teal.400"
                 />
               </MenuButton>
-              <MenuList>
+              <MenuList zIndex={9999}>
                 <MenuItem>{t('header.profile')}</MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onLogoutClick}>

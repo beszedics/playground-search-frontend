@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../api/axios';
-import { UserContext } from '../../context/UserContext';
+import { UserContext, useUser } from '../../context/UserContext';
 
 type LoginProps = {
   isOpen: boolean;
@@ -40,7 +40,7 @@ const Login = ({
   setShowRegistrationModal,
   setShowLoginModal,
 }: LoginProps) => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
   const { t } = useTranslation();
   const toast = useToast();
 
@@ -76,11 +76,12 @@ const Login = ({
             localStorage.setItem('token', res.data.token);
             setUser?.({
               id: res.data.user.id,
-              firstName: res.data.user.firstName,
-              lastName: res.data.user.lastName,
               email: res.data.user.email,
               username: res.data.user.username,
-              status: true,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              isAdmin: res.data.user.isAdmin,
+              isLoggedIn: true,
             });
             toast({
               title: t('loginModal.successfulLogin'),
@@ -135,6 +136,7 @@ const Login = ({
                 label="Username"
                 mb={2}
                 isInvalid={!!formik.errors.username && formik.touched.username}
+                isRequired
               >
                 <FormLabel htmlFor="username">
                   {t('loginModal.username')}
@@ -155,6 +157,7 @@ const Login = ({
                 label="Password"
                 mb={2}
                 isInvalid={!!formik.errors.password && formik.touched.password}
+                isRequired
               >
                 <FormLabel htmlFor="password">
                   {t('loginModal.password')}

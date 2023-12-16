@@ -1,6 +1,7 @@
 import {
   ArrayField,
-  ChipField,
+  BooleanField,
+  BooleanInput,
   Datagrid,
   DateField,
   DateInput,
@@ -9,7 +10,6 @@ import {
   NumberField,
   NumberInput,
   ReferenceField,
-  ReferenceInput,
   Show,
   SimpleForm,
   SimpleShowLayout,
@@ -18,18 +18,8 @@ import {
 } from 'react-admin';
 import React from 'react';
 
-const playgroundFilters = [
-  <TextInput key="nemtudom" source="q" label="Search" alwaysOn />,
-  <ReferenceInput
-    key="nemtudom2"
-    source="userId"
-    label="User"
-    reference="users"
-  />,
-];
-
 export const PlaygroundList = () => (
-  <List filters={playgroundFilters}>
+  <List>
     <Datagrid rowClick="show">
       <TextField source="id" />
       <TextField source="name" />
@@ -39,6 +29,7 @@ export const PlaygroundList = () => (
       <TextField source="openingHours" />
       <NumberField source="averageRating" />
       <NumberField source="totalReviews" />
+      <BooleanField source="isPublished" label="Published" />
       <DateField source="createdAt" />
       <DateField source="updatedAt" />
     </Datagrid>
@@ -56,6 +47,7 @@ export const PlaygroundShow = () => (
       <TextField source="openingHours" />
       <NumberField source="averageRating" />
       <NumberField source="totalReviews" />
+      <BooleanField source="isPublished" label="Published" />
       <ArrayField source="equipments">
         <Datagrid>
           <ReferenceField
@@ -100,8 +92,10 @@ export const PlaygroundEdit = () => (
       <NumberInput source="latitude" />
       <NumberInput source="longitude" />
       <TextInput source="openingHours" />
-      <TextInput source="ratings" />
       <NumberInput source="averageRating" disabled />
+      <NumberInput source="totalReviews" disabled />
+      <BooleanInput source="isPublished" label="Published" />
+      <TextInput source="ratings" />
       <DateInput source="createdAt" disabled />
       <DateInput source="updatedAt" disabled />
       <TextInput source="equipments" />

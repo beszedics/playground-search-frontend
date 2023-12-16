@@ -9,14 +9,12 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Error from './components/Error/Error';
 import ReactAdmin from './admin/Admin';
 import PlaygroundDetail from './components/PlaygroundDetail/PlaygroundDetail';
+import { SearchProvider } from './context/SearchContext';
 
 const AppHeader = () => {
   return (
     <>
-      <UserLocationProvider>
-        <UserProvider />
-        <Header />
-      </UserLocationProvider>
+      <Header />
     </>
   );
 };
@@ -26,8 +24,10 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
-        <AppHeader />
-        <Main />
+        <UserLocationProvider>
+          <AppHeader />
+          <Main />
+        </UserLocationProvider>
       </>
     ),
     errorElement: <Error />,
@@ -36,14 +36,13 @@ const router = createBrowserRouter([
     path: '/playgrounds/:playgroundId',
     element: (
       <>
-        <AppHeader />
-        <PlaygroundDetail />
+        <UserLocationProvider>
+          <AppHeader />
+          <PlaygroundDetail />
+        </UserLocationProvider>
       </>
     ),
-  },
-  {
-    path: '/admin',
-    element: <ReactAdmin />,
+    errorElement: <Error />,
   },
   {
     path: '/admin/*',
@@ -57,7 +56,11 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <UserProvider>
+          <SearchProvider>
+            <RouterProvider router={router} />
+          </SearchProvider>
+        </UserProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );
