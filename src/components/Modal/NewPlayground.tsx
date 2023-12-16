@@ -14,13 +14,13 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Logo from '../Logo/Logo';
 import { useTranslation } from 'react-i18next';
 import axios from '../../api/axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { UserLocationContext } from '../../context/UserLocation';
+import { useUserLocation } from '../../context/UserLocation';
 
 type NewPlaygroundProps = {
   isOpen: boolean;
@@ -32,16 +32,17 @@ const AddNewPlaygroundValidationSchema = () => {
 
   return Yup.object().shape({
     name: Yup.string().required(
-      t('addNewPlaygroundModal.errors.name') || 'Name is required',
+      t('add_new_playground_modal.errors.name') || 'Name is required',
     ),
     address: Yup.string().required(
-      t('addNewPlaygroundModal.errors.address') || 'Address is required',
+      t('add_new_playground_modal.errors.address') || 'Address is required',
     ),
     latitude: Yup.number().required(
-      t('addNewPlaygroundModal.errors.latitude') || 'Latitude is required!',
+      t('add_new_playground_modal.errors.latitude') || 'Latitude is required!',
     ),
     longitude: Yup.number().required(
-      t('addNewPlaygroundModal.errors.longitude') || 'Longitude is required!',
+      t('add_new_playground_modal.errors.longitude') ||
+        'Longitude is required!',
     ),
     openingHours: Yup.string(),
   });
@@ -50,7 +51,7 @@ const AddNewPlaygroundValidationSchema = () => {
 const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
   const { t } = useTranslation();
   const toast = useToast();
-  const { latitude, longitude } = useContext(UserLocationContext);
+  const { latitude, longitude } = useUserLocation();
 
   useEffect(() => {
     formik.setValues({
@@ -85,11 +86,14 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
         url: '/playgrounds',
         method: 'POST',
         data: data,
+        headers: {
+          token: localStorage.getItem('token'),
+        },
       })
         .then((res) => {
           if (res.data.error) {
             toast({
-              title: t('addNewPlaygroundModal.errors.failed_add_playground'),
+              title: t('add_new_playground_modal.errors.failed_add_playground'),
               description: res.data.errors,
               status: 'error',
               duration: 9000,
@@ -98,7 +102,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
             });
           } else {
             toast({
-              title: t('addNewPlaygroundModal.success_add_playground'),
+              title: t('add_new_playground_modal.success_add_playground'),
               status: 'success',
               duration: 9000,
               isClosable: true,
@@ -109,7 +113,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
         })
         .catch((error) => {
           toast({
-            title: t('addNewPlaygroundModal.errors.failed_add_playground'),
+            title: t('add_new_playground_modal.errors.failed_add_playground'),
             description: error.response.data.errors,
             status: 'error',
             duration: 9000,
@@ -137,7 +141,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
           <ModalCloseButton />
           <ModalBody>
             <Heading size="md" mb={5}>
-              {t('addNewPlaygroundModal.title')}
+              {t('add_new_playground_modal.title')}
             </Heading>
             <FormControl
               label="Playground name"
@@ -146,7 +150,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
               isRequired
             >
               <FormLabel htmlFor="name">
-                {t('addNewPlaygroundModal.name')}
+                {t('add_new_playground_modal.name')}
               </FormLabel>
               <Input
                 id="name"
@@ -167,7 +171,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
               isRequired
             >
               <FormLabel htmlFor="address">
-                {t('addNewPlaygroundModal.address')}
+                {t('add_new_playground_modal.address')}
               </FormLabel>
               <Input
                 id="address"
@@ -183,7 +187,7 @@ const NewPlayground = ({ isOpen, onClose }: NewPlaygroundProps) => {
             </FormControl>
             <FormControl label="Playground opening hours" mb={2}>
               <FormLabel htmlFor="openingHours">
-                {t('addNewPlaygroundModal.openingHours')}
+                {t('add_new_playground_modal.openingHours')}
               </FormLabel>
               <Input
                 id="openingHours"

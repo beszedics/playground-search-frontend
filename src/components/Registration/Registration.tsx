@@ -43,7 +43,7 @@ const Registration = ({
   setShowLoginModal,
   setShowRegistrationModal,
 }: RegistrationProps) => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { t } = useTranslation();
   const toast = useToast();
 
@@ -85,11 +85,11 @@ const Registration = ({
             localStorage.setItem('token', res.data.token);
             setUser?.({
               id: res.data.user.id,
-              firstName: res.data.user.firstName,
-              lastName: res.data.user.lastName,
               email: res.data.user.email,
               username: res.data.user.username,
-              status: true,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              isLoggedIn: true,
             });
             toast({
               title: t('registrationModal.successfulRegistration'),
@@ -146,6 +146,7 @@ const Registration = ({
                 isInvalid={
                   !!formik.errors.firstName && formik.touched.firstName
                 }
+                isRequired
               >
                 <FormLabel htmlFor="firstName">
                   {t('registrationModal.firstName')}
@@ -166,6 +167,7 @@ const Registration = ({
                 label="Last name"
                 mb={2}
                 isInvalid={!!formik.errors.lastName && formik.touched.lastName}
+                isRequired
               >
                 <FormLabel htmlFor="lastName">
                   {t('registrationModal.lastName')}
@@ -186,6 +188,7 @@ const Registration = ({
                 label="Email"
                 mb={2}
                 isInvalid={!!formik.errors.email && formik.touched.email}
+                isRequired
               >
                 <FormLabel htmlFor="email">
                   {t('registrationModal.email')}
@@ -206,6 +209,7 @@ const Registration = ({
                 label="Username"
                 mb={2}
                 isInvalid={!!formik.errors.username && formik.touched.username}
+                isRequired
               >
                 <FormLabel htmlFor="username">
                   {t('registrationModal.username')}
@@ -226,6 +230,7 @@ const Registration = ({
                 label="Password"
                 mb={2}
                 isInvalid={!!formik.errors.password && formik.touched.password}
+                isRequired
               >
                 <FormLabel htmlFor="password">
                   {t('registrationModal.password')}

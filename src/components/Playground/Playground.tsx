@@ -31,6 +31,7 @@ import { PlaygroundType } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import Equipment from '../Equipment/Equipment';
 import Score from '../Rating/Score';
+import OpeningHours from '../OpeningHours/OpeningHours';
 
 const PLAYGROUND_SEARCH_WEB_URI =
   process.env.REACT_APP_PLAYGROUND_SEARCH_WEB_URI;
@@ -48,15 +49,6 @@ const Playground = ({
 }: PlaygroundType) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const onFavoriteToggleClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      event?.preventDefault();
-      event.stopPropagation();
-      console.log('onFavorite');
-    },
-    [],
-  );
 
   const handleSocialIconClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -90,7 +82,6 @@ const Playground = ({
       id={String(id)}
       maxW={350}
       minW={250}
-      // minH={500}
       maxH={600}
       cursor="pointer"
       borderWidth="1px"
@@ -175,16 +166,13 @@ const Playground = ({
             )}
           </HStack>
         </Box>
-        <Box display="flex" alignItems="center" my={3}>
-          <Icon as={MdAccessTime} w={6} h={6} color="teal.500" mr={1} />
-          <Text color="#1B4965" fontSize="16px" fontWeight={400}>
-            {openingHours !== null && openingHours !== ''
-              ? openingHours
-              : t('playgrounds.no_opening_hours')}
-          </Text>
-        </Box>
+        <OpeningHours openingHours={openingHours} />
       </Box>
-      {equipments && <Equipment equipments={equipments} />}
+      {equipments && (
+        <Box px={4} py={1}>
+          <Equipment equipments={equipments} />
+        </Box>
+      )}
     </Box>
   );
 };

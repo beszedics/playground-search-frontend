@@ -14,7 +14,6 @@ import { SearchProvider } from './context/SearchContext';
 const AppHeader = () => {
   return (
     <>
-      <UserProvider />
       <Header />
     </>
   );
@@ -46,10 +45,6 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: '/admin',
-    element: <ReactAdmin />,
-  },
-  {
     path: '/admin/*',
     element: <ReactAdmin />,
   },
@@ -61,9 +56,11 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <SearchProvider>
-          <RouterProvider router={router} />
-        </SearchProvider>
+        <UserProvider>
+          <SearchProvider>
+            <RouterProvider router={router} />
+          </SearchProvider>
+        </UserProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );

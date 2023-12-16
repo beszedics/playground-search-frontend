@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext } from 'react';
+import React, { ReactNode, createContext, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,6 +15,18 @@ type UserLocationContextType = {
 };
 
 export const UserLocationContext = createContext<UserLocationContextType>({});
+
+export const useUserLocation = () => {
+  const context = useContext(UserLocationContext);
+
+  if (!context) {
+    throw new Error(
+      'useUserLocation must be used within a UserLocationProvider',
+    );
+  }
+
+  return context;
+};
 
 export const UserLocationProvider: React.FC<UserLocationProviderProps> = ({
   children,
