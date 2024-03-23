@@ -1,9 +1,20 @@
-import { Box, Button, FormControl, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  FormControl,
+  Input,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Avatar from '../Avatar/Avatar';
 import { useTranslation } from 'react-i18next';
 import EditProfile from '../Modal/EditProfile';
 import { useUser } from '../../context/UserContext';
+import { useQuery } from '@tanstack/react-query';
+import axios from '../../api/axios';
+import Playground from '../Playground/Playground';
+import { PlaygroundWrapper } from '../../utils/types';
 
 const Profile = () => {
   const { user } = useUser();
@@ -11,12 +22,24 @@ const Profile = () => {
 
   const { t } = useTranslation();
 
+  const userQuery = useQuery({
+    queryKey: ['userData'],
+    queryFn: () =>
+      axios({ url: `/users/${user?.id}` }).then((response) => response.data),
+  });
+
   const onEditProfileClick = () => {
     setShowEditProfile(!showEditProfile);
   };
 
+  const {
+    data: userData,
+    error: userDataError,
+    isLoading: userDataIsLoading,
+  } = userQuery;
+
   return (
-    <>
+    <SimpleGrid columns={[1, null, 2]} p={4}>
       <Box
         display="flex"
         flexDirection="column"
@@ -78,8 +101,36 @@ const Profile = () => {
           {t('profile.editProfile')}
         </Button>
       </Box>
+      <Box>
+        {userData && userData.playgrounds.length ? (
+          userData.playgrounds.map((playground: PlaygroundWrapper) => (
+            <Playground
+              key={playground.playground.id}
+              id={playground.playground.id}
+              name={playground.playground.name}
+              address={playground.playground.address}
+              longitude={playground.playground.longitude}
+              latitude={playground.playground.latitude}
+              openingHours={playground.playground.openingHours}
+              isPublished={playground.playground.isPublished}
+              equipments={playground.playground.equipments}
+              averageRating={playground.playground.averageRating}
+            />
+          ))
+        ) : (
+          <Text
+            display="flex"
+            alignItems="center"
+            color="#1B4965"
+            fontSize="20px"
+            fontWeight={700}
+          >
+            {t('profile.noFavorite')}
+          </Text>
+        )}
+      </Box>
       {showEditProfile && <EditProfile isOpen onClose={onEditProfileClick} />}
-    </>
+    </SimpleGrid>
   );
 };
 

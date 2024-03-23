@@ -44,6 +44,10 @@ const Header = () => {
     i18n.changeLanguage(newLanguage);
   }, []);
 
+  const onProfileClick = useCallback(() => {
+    navigate('/profile');
+  }, []);
+
   const onSignUpClick = () => {
     setShowRegistrationModal(!showRegistrationModal);
   };
@@ -124,7 +128,9 @@ const Header = () => {
                 />
               </MenuButton>
               <MenuList zIndex={9999}>
-                <MenuItem>{t('header.profile')}</MenuItem>
+                <MenuItem onClick={onProfileClick}>
+                  {t('header.profile')}
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onLogoutClick}>
                   {t('header.logout')}

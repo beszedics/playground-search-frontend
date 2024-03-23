@@ -10,6 +10,7 @@ import Error from './components/Error/Error';
 import ReactAdmin from './admin/Admin';
 import PlaygroundDetail from './components/PlaygroundDetail/PlaygroundDetail';
 import { SearchProvider } from './context/SearchContext';
+import Profile from './components/Profile/Profile';
 
 const AppHeader = () => {
   return (
@@ -31,6 +32,17 @@ const router = createBrowserRouter([
       </>
     ),
     errorElement: <Error />,
+  },
+  {
+    path: '/profile',
+    element: (
+      <>
+        <UserLocationProvider>
+          <AppHeader />
+          <Profile />
+        </UserLocationProvider>
+      </>
+    ),
   },
   {
     path: '/playgrounds/:playgroundId',

@@ -50,7 +50,8 @@
   "profile": {
     "editProfile": "Edit profile",
     "saveBtn": "Save",
-    "cancelBtn": "Cancel"
+    "cancelBtn": "Cancel",
+    "noFavorite": "There is no favorite playgrounds yet"
   },
   "editProfile": {
     "successfulEditProfile": "Edited successful",

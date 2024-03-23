@@ -13,6 +13,10 @@ export type PlaygroundType = {
   totalReviews?: number;
 };
 
+export type PlaygroundWrapper = {
+  playground: PlaygroundType;
+};
+
 export type UserType = {
   id?: string;
   email?: string;

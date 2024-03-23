@@ -1,18 +1,7 @@
-import {
-  Box,
-  CircularProgress,
-  HStack,
-  IconButton,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
-import React, { useCallback } from 'react';
+import { Box, HStack, Stack, Text } from '@chakra-ui/react';
+import React from 'react';
 import { Icon } from '@chakra-ui/react';
 import { TiLocationArrowOutline } from 'react-icons/ti';
-import { MdAccessTime, MdFavoriteBorder } from 'react-icons/md';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -25,8 +14,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Playground.css';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from '@tanstack/react-query';
-import axios from '../../api/axios';
 import { PlaygroundType } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import Equipment from '../Equipment/Equipment';
@@ -55,28 +42,6 @@ const Playground = ({
     event.stopPropagation();
   };
 
-  // const imagesQuery = useQuery({
-  //   queryKey: ['images'],
-  //   queryFn: () => axios({ url: '/images' }).then((response) => response.data),
-  // });
-
-  // const {
-  //   data: imagesData,
-  //   error: imagesError,
-  //   isLoading: imagesIsLoading,
-  // } = imagesQuery;
-
-  // if (imagesIsLoading) {
-  //   return (
-  //     <CircularProgress
-  //       color="teal.500"
-  //       size={7}
-  //       thickness={10}
-  //       isIndeterminate
-  //     />
-  //   );
-  // }
-
   return (
     <Box
       id={String(id)}
@@ -89,39 +54,6 @@ const Playground = ({
       boxShadow="md"
       onClick={() => navigate(`playgrounds/${id}`)}
     >
-      <Box>
-        <Swiper
-          slidesPerView={1}
-          modules={[Autoplay, Navigation, Pagination]}
-          pagination={{ clickable: true }}
-          loop
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-        >
-          {/* {imagesData?.imageUrls.map((imageUrl: string) => {
-            return (
-              <SwiperSlide key={imageUrl} className="image-container">
-                <Image src={imageUrl} objectFit="cover" borderRadius={4} />
-                <IconButton
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  position="absolute"
-                  top={2}
-                  right={2}
-                  variant="unstyled"
-                  aria-label="favorite"
-                  icon={<MdFavoriteBorder />}
-                  className="favorite__icon"
-                  onClick={(e) => onFavoriteToggleClick(e)}
-                />
-              </SwiperSlide>
-            );
-          })} */}
-        </Swiper>
-      </Box>
       <Box p={4}>
         <Box>
           <Stack direction="row" justifyContent="space-between">
